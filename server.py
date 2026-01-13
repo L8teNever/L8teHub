@@ -52,7 +52,37 @@ DEFAULT_CONTENT = {
     'github_url': 'https://github.com',
     'instagram_url': 'https://instagram.com',
     'email': 'hello@l8tenever.com',
-    'address': 'Musterstraße 123<br>12345 Berlin'
+    'address': 'Musterstraße 123<br>12345 Berlin',
+    
+    # Hub-Buttons (editierbar)
+    'hub_buttons': [
+        {'id': 'L8teStudy', 'name_de': 'L8teStudy', 'name_en': 'L8teStudy', 'desc_de': 'Lernen', 'desc_en': 'Study', 'url': '#', 'icon': 'study'},
+        {'id': 'L8teFuel', 'name_de': 'L8teFuel', 'name_en': 'L8teFuel', 'desc_de': 'Energie', 'desc_en': 'Energy', 'url': '#', 'icon': 'fuel'},
+        {'id': 'L8teHabbit', 'name_de': 'L8teHabbit', 'name_en': 'L8teHabbit', 'desc_de': 'Routinen', 'desc_en': 'Habits', 'url': '#', 'icon': 'habbit'},
+        {'id': 'L8teID', 'name_de': 'L8teID', 'name_en': 'L8teID', 'desc_de': 'Identität', 'desc_en': 'Identity', 'url': '#', 'icon': 'id'},
+        {'id': 'L8teFlow', 'name_de': 'L8teFlow', 'name_en': 'L8teFlow', 'desc_de': 'Automatisierung', 'desc_en': 'Flows', 'url': '#', 'icon': 'flow'},
+        {'id': 'L8teBot', 'name_de': 'L8teBot', 'name_en': 'L8teBot', 'desc_de': 'Assistent', 'desc_en': 'Bot', 'url': '#', 'icon': 'bot'}
+    ],
+    
+    # Impressum Inhalte
+    'impressum': {
+        'company': 'L8teNever',
+        'address_line1': 'Musterstraße 123',
+        'address_line2': '12345 Berlin',
+        'country': 'Deutschland',
+        'email': 'hello@l8tenever.com',
+        'responsible': 'L8teNever'
+    },
+    
+    # Datenschutz Inhalte
+    'privacy': {
+        'intro_de': 'Diese Website verwendet keine Cookies und kein Tracking.',
+        'intro_en': 'This website does not use cookies or tracking.',
+        'data_processing_de': 'Wir verarbeiten keine personenbezogenen Daten. Die Website ist rein funktional und speichert keine Benutzerinformationen.',
+        'data_processing_en': 'We do not process any personal data. This website is purely functional and does not store any user information.',
+        'server_logs_de': 'Technisch bedingt werden beim Zugriff auf die Website temporäre Verbindungsdaten (IP-Adresse, Zeitstempel) im Server-Log gespeichert. Diese Daten werden nicht ausgewertet und nach 24 Stunden automatisch gelöscht.',
+        'server_logs_en': 'For technical reasons, temporary connection data (IP address, timestamp) is stored in the server log when accessing the website. This data is not analyzed and is automatically deleted after 24 hours.'
+    }
 }
 
 
