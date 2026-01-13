@@ -656,7 +656,7 @@
     </div>
 
     <!-- Hub Button Editor Sub-Modal -->
-    <div id="hub-button-modal" class="legal-overlay z-[70]" onclick="closeOverlayOnClick(event, 'hub-button-modal')">
+    <div id="hub-button-modal" class="legal-overlay !z-[150]" onclick="closeOverlayOnClick(event, 'hub-button-modal')">
         <div class="legal-content text-[var(--m3-on-surface)] !max-w-md">
             <h3 class="text-xl font-bold mb-6">Hub-Button bearbeiten</h3>
             <div class="space-y-4">
@@ -820,44 +820,10 @@
             }
         });
 
-        // Login/Logout Funktionen
-        function toggleLogin() {
-            const modal = document.getElementById('login-modal');
-            modal.classList.toggle('active');
-            document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : 'auto';
-        }
-
-        function toggleEdit() {
-            const modal = document.getElementById('edit-modal');
-            modal.classList.toggle('active');
-            document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : 'auto';
-
-            if (modal.classList.contains('active') && window.loadContentToForm) {
-                window.loadContentToForm();
-            }
-        }
-
-        async function handleLogout() {
-            try {
-                await fetch('/api/logout', { method: 'POST' });
-                window.isLoggedIn = false;
-                updateUIForLogout();
-            } catch (error) {
-                console.error('Logout fehlgeschlagen:', error);
-            }
-        }
-
-        function updateUIForLogin() {
-            document.getElementById('btn-login').classList.add('hidden');
-            document.getElementById('btn-edit').classList.remove('hidden');
-            document.getElementById('btn-logout').classList.remove('hidden');
-        }
-
-        function updateUIForLogout() {
-            document.getElementById('btn-login').classList.remove('hidden');
-            document.getElementById('btn-edit').classList.add('hidden');
-            document.getElementById('btn-logout').classList.add('hidden');
-        }
+        // Login/Logout UI Handlers (delegated to admin.js)
+        window.toggleLogin = window.toggleLogin || function () { console.error('admin.js not loaded'); };
+        window.toggleEdit = window.toggleEdit || function () { console.error('admin.js not loaded'); };
+        window.handleLogout = window.handleLogout || function () { console.error('admin.js not loaded'); };
 
         function toggleOverlay(id) {
             const overlay = document.getElementById(id);

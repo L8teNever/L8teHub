@@ -4,21 +4,23 @@ let currentContent = window.siteContent || {};
 let editingButtonIndex = -1;
 
 // Login/Logout Funktionen
-function toggleLogin() {
+window.toggleLogin = function () {
     const modal = document.getElementById('login-modal');
+    if (!modal) return;
     modal.classList.toggle('active');
     document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : 'auto';
-}
+};
 
-function toggleEdit() {
+window.toggleEdit = function () {
     const modal = document.getElementById('edit-modal');
+    if (!modal) return;
     modal.classList.toggle('active');
     document.body.style.overflow = modal.classList.contains('active') ? 'hidden' : 'auto';
 
     if (modal.classList.contains('active')) {
         loadContentToForm();
     }
-}
+};
 
 async function handleLogin(event) {
     event.preventDefault();
@@ -26,7 +28,10 @@ async function handleLogin(event) {
     const password = document.getElementById('login-password').value;
     const errorDiv = document.getElementById('login-error');
 
+    errorDiv.classList.add('hidden');
+
     try {
+        console.log('Versuche Login für:', username);
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -34,29 +39,33 @@ async function handleLogin(event) {
         });
 
         const data = await response.json();
+        console.log('Login Response:', data);
 
-        if (data.success) {
+        if (response.ok && data.success) {
             window.isLoggedIn = true;
             updateUIForLogin();
             toggleLogin();
-            errorDiv.classList.add('hidden');
             // Lade aktuelle Inhalte
             await loadCurrentContent();
         } else {
-            errorDiv.textContent = data.message || 'Login fehlgeschlagen';
+            errorDiv.textContent = data.message || 'Login fehlgeschlagen (Falsche Daten?)';
             errorDiv.classList.remove('hidden');
         }
     } catch (error) {
-        errorDiv.textContent = 'Verbindungsfehler';
+        console.error('Login Error:', error);
+        errorDiv.textContent = 'Verbindungsfehler: Der Server ist nicht erreichbar oder liefert keine gültige Antwort. (Details in der Konsole)';
         errorDiv.classList.remove('hidden');
     }
 }
 
 async function handleLogout() {
     try {
-        await fetch('/api/logout', { method: 'POST' });
-        window.isLoggedIn = false;
-        updateUIForLogout();
+        const response = await fetch('/api/logout', { method: 'POST' });
+        if (response.ok) {
+            window.isLoggedIn = false;
+            updateUIForLogout();
+            location.reload(); // Reload um alles sauber zurückzusetzen
+        }
     } catch (error) {
         console.error('Logout fehlgeschlagen:', error);
     }
