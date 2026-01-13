@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  l8tenever-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: l8tenever-website
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - l8tenever-network
+
+networks:
+  l8tenever-network:
+    driver: bridge
