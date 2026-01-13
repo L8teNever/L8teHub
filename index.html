@@ -549,18 +549,38 @@
                                 class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
                         </div>
                         <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">E-Mail</label>
+                            <input type="email" id="edit-email"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Adresse (HTML erlaubt)</label>
+                            <input type="text" id="edit-address"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
                             <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Untertitel (DE)</label>
                             <input type="text" id="edit-subtitle-de"
                                 class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Alter</label>
-                            <input type="text" id="edit-age"
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Untertitel (EN)</label>
+                            <input type="text" id="edit-subtitle-en"
                                 class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Status (DE)</label>
                             <input type="text" id="edit-status-de"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Status (EN)</label>
+                            <input type="text" id="edit-status-en"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Alter</label>
+                            <input type="text" id="edit-age"
                                 class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
                         </div>
                         <div>
@@ -916,39 +936,67 @@
         window.onload = () => {
             renderHub();
             const footer = document.getElementById('shared-footer');
-            const placeholderOverview = document.getElementById('footer-placeholder-overview');
-            placeholderOverview.appendChild(footer);
+            const targetPage = window.currentPage || 'overview';
 
-            // Setze aktive Sprache im UI
-            if (currentLang) {
-                document.querySelectorAll('.footer-chip').forEach(btn => btn.classList.remove('active'));
-                const langBtn = document.getElementById(`lang-${currentLang}`);
-                if (langBtn) langBtn.classList.add('active');
+            // Footer an die richtige Stelle bewegen
+            let placeholder = document.getElementById(`footer-placeholder-${targetPage}`);
+            if (!placeholder && targetPage === 'about') placeholder = document.getElementById('footer-placeholder-about');
+            if (!placeholder && targetPage === 'hub') placeholder = document.getElementById('footer-placeholder-hub');
+            if (!placeholder && targetPage === 'overview') placeholder = document.getElementById('footer-placeholder-overview');
 
-                // Übersetze die Seite
-                if (translations[currentLang]) {
-                    document.querySelectorAll('[data-i18n]').forEach(el => {
-                        const key = el.getAttribute('data-i18n');
-                        if (translations[currentLang][key]) {
-                            el.innerText = translations[currentLang][key];
-                        }
-                    });
+            if (placeholder && footer) {
+                placeholder.appendChild(footer);
+            } else if (footer) {
+                // Auf rechtlichen Seiten (Impressum/Datenschutz) den Footer am Ende des Contents einfügen
+                const legalContent = document.querySelector('.max-w-4xl.mx-auto.p-8');
+                if (legalContent) {
+                    legalContent.appendChild(footer);
+                } else {
+                    document.body.appendChild(footer);
                 }
             }
 
+            // Setze aktive Sprache im UI
+            const lang = window.currentLang || 'de';
+            document.querySelectorAll('.footer-chip').forEach(btn => btn.classList.remove('active'));
+            const langBtn = document.getElementById(`lang-${lang}`);
+            if (langBtn) langBtn.classList.add('active');
+
+            // Übersetze die Seite
+            if (translations[lang]) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.innerText = translations[lang][key];
+                    }
+                });
+            }
+
             // Zeige die richtige Seite basierend auf window.currentPage
-            const targetPage = window.currentPage || 'overview';
-            if (targetPage !== 'overview') {
+            const availablePages = ['overview', 'hub', 'about'];
+            if (targetPage !== 'overview' && availablePages.includes(targetPage)) {
                 switchPage(targetPage);
+            }
+
+            // Login-Status prüfen und UI anpassen
+            if (window.isLoggedIn) {
+                // Wir verwenden ein kurzes Intervall, falls admin.js noch nicht geladen ist
+                const checkAdmin = setInterval(() => {
+                    if (typeof updateUIForLogin === 'function') {
+                        updateUIForLogin();
+                        clearInterval(checkAdmin);
+                    }
+                }, 50);
+                setTimeout(() => clearInterval(checkAdmin), 2000);
             }
 
             // Schnelles Fade-In beim Laden
             setTimeout(() => {
                 document.body.style.opacity = '1';
-            }, 20); // Reduziert von 50ms
+            }, 20);
         };
     </script>
-    <script src="admin.js"></script>
+    <script src="/admin.js"></script>
 </body>
 
 </html>

@@ -88,9 +88,13 @@ async function loadCurrentContent() {
 function loadContentToForm() {
     // Basis-Informationen
     document.getElementById('edit-name').value = currentContent.name || '';
+    document.getElementById('edit-email').value = currentContent.email || '';
+    document.getElementById('edit-address').value = currentContent.address || '';
     document.getElementById('edit-subtitle-de').value = currentContent.subtitle_de || '';
-    document.getElementById('edit-age').value = currentContent.age || '';
+    document.getElementById('edit-subtitle-en').value = currentContent.subtitle_en || '';
     document.getElementById('edit-status-de').value = currentContent.status_de || '';
+    document.getElementById('edit-status-en').value = currentContent.status_en || '';
+    document.getElementById('edit-age').value = currentContent.age || '';
     document.getElementById('edit-vibe').value = currentContent.vibe || '';
     document.getElementById('edit-location').value = currentContent.location || '';
     document.getElementById('edit-github').value = currentContent.github_url || '';
@@ -209,17 +213,17 @@ async function handleSaveContent(event) {
 
     const updatedContent = {
         name: document.getElementById('edit-name').value,
+        email: document.getElementById('edit-email').value,
+        address: document.getElementById('edit-address').value,
         subtitle_de: document.getElementById('edit-subtitle-de').value,
-        subtitle_en: currentContent.subtitle_en || 'Digital Creator & Developer',
+        subtitle_en: document.getElementById('edit-subtitle-en').value,
         age: document.getElementById('edit-age').value,
         status_de: document.getElementById('edit-status-de').value,
-        status_en: currentContent.status_en || 'Student',
+        status_en: document.getElementById('edit-status-en').value,
         vibe: document.getElementById('edit-vibe').value,
         location: document.getElementById('edit-location').value,
         github_url: document.getElementById('edit-github').value,
         instagram_url: document.getElementById('edit-instagram').value,
-        email: currentContent.email || 'hello@l8tenever.com',
-        address: currentContent.address || 'Musterstraße 123<br>12345 Berlin',
 
         // Hub-Buttons
         hub_buttons: currentContent.hub_buttons || [],
