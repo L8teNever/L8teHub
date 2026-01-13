@@ -45,6 +45,9 @@ logs/
 .env
 .env.local
 
+# Content files (optional - entferne diese Zeile wenn du content.json committen willst)
+content.json
+
 # Docker
 .dockerignore
 

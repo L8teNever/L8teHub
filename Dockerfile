@@ -9,6 +9,12 @@ LABEL version="1.0"
 # Setze Arbeitsverzeichnis
 WORKDIR /app
 
+# Kopiere requirements.txt zuerst (für besseres Caching)
+COPY requirements.txt /app/
+
+# Installiere Python-Abhängigkeiten
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Kopiere alle Dateien ins Container
 COPY . /app
 

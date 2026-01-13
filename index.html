@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de" class="transition-colors duration-300">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,55 +56,102 @@
         /* Responsive Overlays */
         .legal-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(16px);
             z-index: 100;
             display: flex;
-            opacity: 0; visibility: hidden;
+            opacity: 0;
+            visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s;
-            justify-content: center; align-items: flex-end;
+            justify-content: center;
+            align-items: flex-end;
         }
 
         @media (min-width: 768px) {
-            .legal-overlay { justify-content: flex-end; align-items: stretch; }
+            .legal-overlay {
+                justify-content: flex-end;
+                align-items: stretch;
+            }
         }
 
-        .legal-overlay.active { opacity: 1; visibility: visible; }
+        .legal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
         .legal-content {
             background: var(--m3-surface);
-            width: 100%; max-height: 90vh;
-            padding: 2rem; overflow-y: auto;
+            width: 100%;
+            max-height: 90vh;
+            padding: 2rem;
+            overflow-y: auto;
             transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
-            border-top-left-radius: 32px; border-top-right-radius: 32px;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
         }
 
         @media (min-width: 768px) {
             .legal-content {
-                width: 450px; max-height: 100vh; height: 100vh;
-                border-radius: 40px 0 0 40px; transform: translateX(100%);
+                width: 450px;
+                max-height: 100vh;
+                height: 100vh;
+                border-radius: 40px 0 0 40px;
+                transform: translateX(100%);
                 padding: 3rem 2rem;
             }
         }
 
-        .legal-overlay.active .legal-content { transform: translateY(0); }
-        @media (min-width: 768px) { .legal-overlay.active .legal-content { transform: translateX(0); } }
+        .legal-overlay.active .legal-content {
+            transform: translateY(0);
+        }
+
+        @media (min-width: 768px) {
+            .legal-overlay.active .legal-content {
+                transform: translateX(0);
+            }
+        }
 
         /* Animation System */
         .page-transition {
             transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .page-exit { opacity: 0; transform: scale(0.94); pointer-events: none; }
-        .page-enter { opacity: 0; transform: scale(1.06); pointer-events: none; }
-        .hidden { display: none !important; }
+
+        .page-exit {
+            opacity: 0;
+            transform: scale(0.94);
+            pointer-events: none;
+        }
+
+        .page-enter {
+            opacity: 0;
+            transform: scale(1.06);
+            pointer-events: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
 
         .close-handle {
-            width: 40px; height: 4px; background: var(--m3-surface-variant); border-radius: 2px; margin: -10px auto 25px; display: block;
+            width: 40px;
+            height: 4px;
+            background: var(--m3-surface-variant);
+            border-radius: 2px;
+            margin: -10px auto 25px;
+            display: block;
         }
-        @media (min-width: 768px) { .close-handle { display: none; } }
+
+        @media (min-width: 768px) {
+            .close-handle {
+                display: none;
+            }
+        }
 
         /* Language Controls */
         .lang-container {
@@ -129,7 +177,7 @@
             background-color: var(--m3-secondary-container);
             color: var(--m3-on-secondary-container);
             opacity: 1;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .theme-toggle-btn {
@@ -145,21 +193,29 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen">
 
     <!-- OVERVIEW VIEW -->
-    <section id="page-overview" class="page-transition max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
-        <header class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center">
+    <section id="page-overview"
+        class="page-transition max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
+        <header
+            class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center">
             <div class="relative inline-block group">
-                <div class="w-24 h-24 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-[32px] lg:rounded-[48px] shadow-2xl flex items-center justify-center text-white text-3xl lg:text-5xl font-bold transform rotate-3 transition-transform group-hover:rotate-0">
+                <div
+                    class="w-24 h-24 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-[32px] lg:rounded-[48px] shadow-2xl flex items-center justify-center text-white text-3xl lg:text-5xl font-bold transform rotate-3 transition-transform group-hover:rotate-0">
                     LN
                 </div>
-                <div class="absolute -bottom-1 -right-1 w-6 h-6 lg:w-10 lg:h-10 bg-green-400 border-4 border-[var(--m3-surface)] rounded-full"></div>
+                <div
+                    class="absolute -bottom-1 -right-1 w-6 h-6 lg:w-10 lg:h-10 bg-green-400 border-4 border-[var(--m3-surface)] rounded-full">
+                </div>
             </div>
-            
+
             <div class="mt-6 lg:mt-10">
-                <h1 class="text-3xl lg:text-5xl font-bold tracking-tight mb-2 text-[var(--m3-on-surface)]">L8teNever</h1>
-                <p class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_overview">Digitaler Creator & Entwickler</p>
+                <h1 class="text-3xl lg:text-5xl font-bold tracking-tight mb-2 text-[var(--m3-on-surface)]">L8teNever
+                </h1>
+                <p class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_overview">Digitaler Creator &
+                    Entwickler</p>
             </div>
         </header>
 
@@ -167,9 +223,13 @@
             <div class="space-y-4 w-full max-w-xl mx-auto lg:mx-0 lg:mt-20">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- Personal Info Card -->
-                    <button onclick="switchPage('about')" class="android-card p-6 lg:p-8 bg-[var(--m3-primary)] text-white flex items-center space-x-6 shadow-lg text-left">
+                    <button onclick="switchPage('about')"
+                        class="android-card p-6 lg:p-8 bg-[var(--m3-primary)] text-white flex items-center space-x-6 shadow-lg text-left">
                         <div class="p-3 bg-white/20 rounded-2xl shrink-0">
-                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
                         </div>
                         <div>
                             <span class="block font-bold text-lg lg:text-2xl" data-i18n="nav_info">Info</span>
@@ -178,9 +238,13 @@
                     </button>
 
                     <!-- GitHub -->
-                    <a href="https://github.com" target="_blank" class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm">
+                    <a href="https://github.com" target="_blank"
+                        class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm">
                         <div class="p-3 bg-white/20 rounded-2xl shrink-0">
-                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
                         </div>
                         <div>
                             <span class="block font-bold text-lg lg:text-2xl">GitHub</span>
@@ -189,9 +253,13 @@
                     </a>
 
                     <!-- Instagram -->
-                    <a href="https://instagram.com" target="_blank" class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm sm:col-span-2">
+                    <a href="https://instagram.com" target="_blank"
+                        class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm sm:col-span-2">
                         <div class="p-3 bg-white/20 rounded-2xl shrink-0">
-                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
                         </div>
                         <div>
                             <span class="block font-bold text-lg lg:text-2xl">Instagram</span>
@@ -206,51 +274,75 @@
     </section>
 
     <!-- ABOUT VIEW (Personal Info Tiled) - GEFIXTER DARK MODE -->
-    <section id="page-about" class="page-transition hidden hidden-page max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
-        <header class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center lg:text-left lg:items-start">
-            <div class="w-20 h-20 lg:w-32 lg:h-32 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[40px] shadow-lg flex items-center justify-center text-white mb-6 lg:mb-10 transform -rotate-3">
-                <svg class="w-10 h-10 lg:w-16 lg:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+    <section id="page-about"
+        class="page-transition hidden hidden-page max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
+        <header
+            class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center lg:text-left lg:items-start">
+            <div
+                class="w-20 h-20 lg:w-32 lg:h-32 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[40px] shadow-lg flex items-center justify-center text-white mb-6 lg:mb-10 transform -rotate-3">
+                <svg class="w-10 h-10 lg:w-16 lg:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
             </div>
-            <h1 class="text-3xl lg:text-5xl font-bold tracking-tight text-[var(--m3-on-surface)]" data-i18n="about_title">Über mich</h1>
+            <h1 class="text-3xl lg:text-5xl font-bold tracking-tight text-[var(--m3-on-surface)]"
+                data-i18n="about_title">Über mich</h1>
             <p class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_about">Mein Profil</p>
         </header>
 
         <main class="w-full lg:w-2/3 p-4 lg:p-16 flex flex-col justify-center">
             <div class="grid grid-cols-2 gap-4 w-full max-w-xl mx-auto lg:mx-0">
-                
+
                 <!-- Reihe 1: Alter & Status -->
-                <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1" data-i18n="info_age_label">Alter</span>
+                <div
+                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
+                        data-i18n="info_age_label">Alter</span>
                     <span class="text-2xl font-bold">16</span>
                 </div>
-                <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1" data-i18n="info_status_label">Status</span>
+                <div
+                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
+                        data-i18n="info_status_label">Status</span>
                     <span class="text-xl font-bold" data-i18n="info_status_value">Schüler</span>
                 </div>
 
                 <!-- Reihe 2: Vibe & Standort -->
-                <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1" data-i18n="info_vibe_label">Vibe</span>
+                <div
+                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
+                        data-i18n="info_vibe_label">Vibe</span>
                     <span class="text-lg font-bold">Vibecoding</span>
                 </div>
-                <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1" data-i18n="info_loc_label">Standort</span>
+                <div
+                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
+                        data-i18n="info_loc_label">Standort</span>
                     <span class="text-lg font-bold">Deutschland</span>
                 </div>
 
                 <!-- Reihe 3: Interessen (Volle Breite) -->
-                <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm col-span-2 border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-2" data-i18n="info_interests_label">Interessen</span>
+                <div
+                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm col-span-2 border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-2"
+                        data-i18n="info_interests_label">Interessen</span>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">UI/UX</span>
-                        <span class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">Branding</span>
-                        <span class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">Coding</span>
+                        <span
+                            class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">UI/UX</span>
+                        <span
+                            class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">Branding</span>
+                        <span
+                            class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">Coding</span>
                     </div>
                 </div>
-                
+
                 <!-- Zurück Button (Volle Breite) -->
-                <button onclick="switchPage('overview')" class="android-card p-5 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] font-bold flex items-center justify-center space-x-2 col-span-2 mt-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <button onclick="switchPage('overview')"
+                    class="android-card p-5 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] font-bold flex items-center justify-center space-x-2 col-span-2 mt-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
                     <span data-i18n="back_btn">Zurück</span>
                 </button>
             </div>
@@ -259,13 +351,21 @@
     </section>
 
     <!-- HUB VIEW -->
-    <section id="page-hub" class="page-transition hidden hidden-page max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
-        <header class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center lg:text-left lg:items-start">
-            <div class="w-20 h-20 lg:w-32 lg:h-32 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[40px] shadow-lg flex items-center justify-center text-white mb-6 lg:mb-10 transform -rotate-3">
-                <svg class="w-10 h-10 lg:w-16 lg:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    <section id="page-hub"
+        class="page-transition hidden hidden-page max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
+        <header
+            class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center lg:text-left lg:items-start">
+            <div
+                class="w-20 h-20 lg:w-32 lg:h-32 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[40px] shadow-lg flex items-center justify-center text-white mb-6 lg:mb-10 transform -rotate-3">
+                <svg class="w-10 h-10 lg:w-16 lg:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-5l-5 5v-5z">
+                    </path>
+                </svg>
             </div>
             <h1 class="text-3xl lg:text-5xl font-bold tracking-tight text-[var(--m3-on-surface)]">L8teHub</h1>
-            <p class="opacity-60 text-base lg:text-xl font-medium text-[var(--m3-on-surface)]" data-i18n="subtitle_hub">Launcher</p>
+            <p class="opacity-60 text-base lg:text-xl font-medium text-[var(--m3-on-surface)]" data-i18n="subtitle_hub">
+                Launcher</p>
         </header>
 
         <main class="w-full lg:w-2/3 p-4 lg:p-16 flex flex-col justify-center">
@@ -279,31 +379,181 @@
     <!-- SHARED FOOTER -->
     <footer id="shared-footer" class="pt-10 pb-8 border-t border-gray-200 dark:border-gray-800 px-4 w-full">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-6 max-w-xl mx-auto lg:max-w-none">
-            
+
             <!-- Navigation -->
             <div class="flex space-x-6 text-sm font-semibold opacity-50 text-[var(--m3-on-surface)]">
-                <button onclick="switchPage('hub')" id="btn-to-hub" class="hover:text-[var(--m3-primary)] transition-colors">L8teHub</button>
-                <button onclick="switchPage('overview')" id="btn-to-overview" class="hidden hover:text-[var(--m3-primary)] transition-colors font-bold" data-i18n="nav_socials">Socials</button>
-                <button onclick="toggleOverlay('impressum')" class="hover:text-[var(--m3-primary)]" data-i18n="nav_impressum">Impressum</button>
-                <button onclick="toggleOverlay('datenschutz')" class="hover:text-[var(--m3-primary)]" data-i18n="nav_privacy">Datenschutz</button>
+                <button onclick="navigateToPage('hub')" id="btn-to-hub"
+                    class="hover:text-[var(--m3-primary)] transition-colors">L8teHub</button>
+                <button onclick="navigateToPage('overview')" id="btn-to-overview"
+                    class="hidden hover:text-[var(--m3-primary)] transition-colors font-bold"
+                    data-i18n="nav_socials">Socials</button>
+                <button onclick="navigateToImpressum()" class="hover:text-[var(--m3-primary)]"
+                    data-i18n="nav_impressum">Impressum</button>
+                <button onclick="navigateToDatenschutz()" class="hover:text-[var(--m3-primary)]"
+                    data-i18n="nav_privacy">Datenschutz</button>
+                <!-- Admin Login/Edit Button -->
+                <button onclick="toggleLogin()" id="btn-login" class="hover:text-[var(--m3-primary)] transition-colors">
+                    <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                        </path>
+                    </svg>
+                    Login
+                </button>
+                <button onclick="toggleEdit()" id="btn-edit"
+                    class="hidden hover:text-[var(--m3-primary)] transition-colors text-green-500">
+                    <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                        </path>
+                    </svg>
+                    Edit
+                </button>
+                <button onclick="handleLogout()" id="btn-logout"
+                    class="hidden hover:text-[var(--m3-primary)] transition-colors text-red-500">
+                    <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                        </path>
+                    </svg>
+                    Logout
+                </button>
             </div>
 
             <!-- Theme & Language -->
             <div class="flex items-center space-x-3">
                 <button onclick="toggleTheme()" class="theme-toggle-btn shadow-sm" id="theme-icon">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="sun-icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <svg class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="moon-icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="sun-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <svg class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="moon-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
                 </button>
 
                 <div class="lang-container">
                     <button onclick="changeLang('de')" class="footer-chip active" id="lang-de">DE</button>
                     <button onclick="changeLang('en')" class="footer-chip" id="lang-en">EN</button>
-                    <button onclick="changeLang('jp')" class="footer-chip" id="lang-jp">JP</button>
                 </div>
             </div>
             <p class="text-[10px] sm:text-xs opacity-30 text-[var(--m3-on-surface)]">© 2026 L8teNever</p>
         </div>
     </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="legal-overlay" onclick="closeOverlayOnClick(event, 'login-modal')">
+        <div class="legal-content text-[var(--m3-on-surface)]">
+            <span class="close-handle"></span>
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-2xl lg:text-4xl font-bold">Admin Login</h2>
+                <button onclick="toggleLogin()"
+                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
+                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg></button>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Username</label>
+                    <input type="text" id="login-username"
+                        class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Password</label>
+                    <input type="password" id="login-password"
+                        class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div id="login-error"
+                    class="hidden p-4 bg-red-500/20 text-red-600 dark:text-red-400 rounded-2xl text-sm font-bold"></div>
+                <button type="submit"
+                    class="w-full p-4 bg-[var(--m3-primary)] text-white rounded-2xl font-bold hover:opacity-90 transition-opacity">
+                    Anmelden
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="legal-overlay" onclick="closeOverlayOnClick(event, 'edit-modal')">
+        <div class="legal-content text-[var(--m3-on-surface)]">
+            <span class="close-handle"></span>
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-2xl lg:text-4xl font-bold">Content bearbeiten</h2>
+                <button onclick="toggleEdit()"
+                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
+                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg></button>
+            </div>
+            <form onsubmit="handleSaveContent(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Name</label>
+                    <input type="text" id="edit-name"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Untertitel (DE)</label>
+                    <input type="text" id="edit-subtitle-de"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Alter</label>
+                    <input type="text" id="edit-age"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Status (DE)</label>
+                    <input type="text" id="edit-status-de"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Vibe</label>
+                    <input type="text" id="edit-vibe"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Standort</label>
+                    <input type="text" id="edit-location"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">GitHub URL</label>
+                    <input type="url" id="edit-github"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 opacity-70">Instagram URL</label>
+                    <input type="url" id="edit-instagram"
+                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
+                        required>
+                </div>
+                <div id="edit-success"
+                    class="hidden p-4 bg-green-500/20 text-green-600 dark:text-green-400 rounded-2xl text-sm font-bold">
+                </div>
+                <div id="edit-error"
+                    class="hidden p-4 bg-red-500/20 text-red-600 dark:text-red-400 rounded-2xl text-sm font-bold"></div>
+                <button type="submit"
+                    class="w-full p-4 bg-[var(--m3-primary)] text-white rounded-2xl font-bold hover:opacity-90 transition-opacity">
+                    Speichern
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Overlays -->
     <div id="impressum" class="legal-overlay" onclick="closeOverlayOnClick(event, 'impressum')">
@@ -311,7 +561,12 @@
             <span class="close-handle"></span>
             <div class="flex justify-between items-center mb-10">
                 <h2 class="text-2xl lg:text-4xl font-bold" data-i18n="nav_impressum">Impressum</h2>
-                <button onclick="toggleOverlay('impressum')" class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button onclick="toggleOverlay('impressum')"
+                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
+                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg></button>
             </div>
             <div class="space-y-6 opacity-80 text-lg">
                 <p><strong>L8teNever</strong><br>Musterstraße 123<br>12345 Berlin</p>
@@ -325,7 +580,12 @@
             <span class="close-handle"></span>
             <div class="flex justify-between items-center mb-10">
                 <h2 class="text-2xl lg:text-4xl font-bold" data-i18n="nav_privacy">Datenschutz</h2>
-                <button onclick="toggleOverlay('datenschutz')" class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button onclick="toggleOverlay('datenschutz')"
+                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
+                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg></button>
             </div>
             <p class="opacity-80 text-lg" data-i18n="privacy_text">Keine Cookies, kein Tracking. Rein funktional.</p>
         </div>
@@ -356,18 +616,6 @@
                 privacy_text: "Privacy is important to me. No cookies, no tracking.",
                 info_age_label: "Age", info_status_label: "Status", info_status_value: "Student",
                 info_vibe_label: "Vibe", info_loc_label: "Location", info_interests_label: "Interests"
-            },
-            jp: {
-                subtitle_overview: "デジタルクリエイター＆開発者", subtitle_hub: "ランチャー",
-                github_desc: "プロジェクト", insta_desc: "フォローする", study_desc: "学習",
-                fuel_desc: "エネルギー", habbit_desc: "習慣", id_desc: "身元",
-                flow_desc: "オートメーション", bot_desc: "ボット", nav_socials: "SNS",
-                nav_impressum: "法的通知", nav_privacy: "プライバシー",
-                nav_info: "情報", info_desc: "自己紹介", back_btn: "戻る",
-                about_title: "自己紹介", subtitle_about: "プロフィール",
-                privacy_text: "クッキーや追跡はありません。",
-                info_age_label: "年齢", info_status_label: "ステータス", info_status_value: "学生",
-                info_vibe_label: "バイブ", info_loc_label: "場所", info_interests_label: "興味"
             }
         };
 
@@ -381,6 +629,7 @@
         };
 
         let currentActivePage = 'overview';
+        let currentLang = window.currentLang || 'de';
 
         function setTheme(isDark) {
             if (isDark) {
@@ -399,12 +648,21 @@
         setTheme(systemPrefersDark.matches);
 
         function changeLang(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerText = translations[lang][key];
-            });
-            document.querySelectorAll('.footer-chip').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`lang-${lang}`).classList.add('active');
+            // Redirect zur neuen Sprach-URL
+            window.location.href = `/${lang}/`;
+        }
+
+        function navigateToPage(page) {
+            // Navigiere zur entsprechenden URL
+            window.location.href = `/${currentLang}/${page === 'overview' ? '' : page + '/'}`;
+        }
+
+        function navigateToImpressum() {
+            window.location.href = `/${currentLang}/impressum/`;
+        }
+
+        function navigateToDatenschutz() {
+            window.location.href = `/${currentLang}/datenschutz/`;
         }
 
         function toggleOverlay(id) {
@@ -419,12 +677,12 @@
         function renderHub() {
             const grid = document.getElementById('hub-cards-grid');
             const cards = [
-                {id: 'L8teStudy', desc: 'study_desc', icon: projectIcons.study},
-                {id: 'L8teFuel', desc: 'fuel_desc', icon: projectIcons.fuel},
-                {id: 'L8teHabbit', desc: 'habbit_desc', icon: projectIcons.habbit},
-                {id: 'L8teID', desc: 'id_desc', icon: projectIcons.id},
-                {id: 'L8teFlow', desc: 'flow_desc', icon: projectIcons.flow},
-                {id: 'L8teBot', desc: 'bot_desc', icon: projectIcons.bot}
+                { id: 'L8teStudy', desc: 'study_desc', icon: projectIcons.study },
+                { id: 'L8teFuel', desc: 'fuel_desc', icon: projectIcons.fuel },
+                { id: 'L8teHabbit', desc: 'habbit_desc', icon: projectIcons.habbit },
+                { id: 'L8teID', desc: 'id_desc', icon: projectIcons.id },
+                { id: 'L8teFlow', desc: 'flow_desc', icon: projectIcons.flow },
+                { id: 'L8teBot', desc: 'bot_desc', icon: projectIcons.bot }
             ];
             grid.innerHTML = cards.map(c => `
                 <a href="#" class="android-card p-5 lg:p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-4">
@@ -442,7 +700,7 @@
             const hub = document.getElementById('page-hub');
             const about = document.getElementById('page-about');
             const footer = document.getElementById('shared-footer');
-            
+
             const pages = { overview, hub, about };
             const placeholders = {
                 overview: document.getElementById('footer-placeholder-overview'),
@@ -466,7 +724,7 @@
                 targetPage.classList.add('page-enter');
 
                 placeholders[page].appendChild(footer);
-                
+
                 if (page === 'overview') {
                     btnHub.classList.remove('hidden');
                     btnOverview.classList.add('hidden');
@@ -477,7 +735,7 @@
                 setTimeout(() => targetPage.classList.remove('page-enter'), 20);
                 currentActivePage = page;
             }, 250);
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         window.onload = () => {
@@ -485,7 +743,32 @@
             const footer = document.getElementById('shared-footer');
             const placeholderOverview = document.getElementById('footer-placeholder-overview');
             placeholderOverview.appendChild(footer);
+
+            // Setze aktive Sprache im UI
+            if (currentLang) {
+                document.querySelectorAll('.footer-chip').forEach(btn => btn.classList.remove('active'));
+                const langBtn = document.getElementById(`lang-${currentLang}`);
+                if (langBtn) langBtn.classList.add('active');
+
+                // Übersetze die Seite
+                if (translations[currentLang]) {
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (translations[currentLang][key]) {
+                            el.innerText = translations[currentLang][key];
+                        }
+                    });
+                }
+            }
+
+            // Zeige die richtige Seite basierend auf window.currentPage
+            const targetPage = window.currentPage || 'overview';
+            if (targetPage !== 'overview') {
+                switchPage(targetPage);
+            }
         };
     </script>
+    <script src="admin.js"></script>
 </body>
+
 </html>

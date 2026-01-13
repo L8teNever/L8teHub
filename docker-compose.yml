@@ -9,15 +9,30 @@ services:
     ports:
       - "8000:8000"
     environment:
+      # Server-Konfiguration
       - PORT=8000
       - HOST=0.0.0.0
+      
+      # Admin-Zugangsdaten (WICHTIG: Ändere diese Werte für Produktion!)
+      - ADMIN_USER=admin
+      - ADMIN_PASS=admin123
+      
+      # Secret Key für Sessions (WICHTIG: Ändere diesen Wert für Produktion!)
+      - SECRET_KEY=l8tenever-secret-key-change-in-production-2026
+    
     restart: unless-stopped
+    
+    # Persistenz für Content-Datei
+    volumes:
+      - ./content.json:/app/content.json
+    
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000')"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 5s
+    
     networks:
       - l8tenever-network
 
