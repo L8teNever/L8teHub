@@ -1,13 +1,9 @@
 version: '3.8'
 
-# Diese Datei ist für LOKALE ENTWICKLUNG (baut das Image lokal)
-# Für Produktion verwende: docker-compose.prod.yml
-
 services:
   l8tenever-web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Verwende das Image von Docker Hub statt lokal zu bauen
+    image: l8tenever/l8tehub:latest
     container_name: l8tenever-website
     ports:
       - "8000:8000"
