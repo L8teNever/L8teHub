@@ -200,125 +200,147 @@ def about(lang):
 
 @app.route('/<lang>/impressum/')
 def impressum(lang):
-    """Impressum-Seite"""
+    """Impressum-Seite im Material Design"""
     lang = validate_language(lang)
+    content = load_content()
     
-    impressum_html = f"""
-<!DOCTYPE html>
-<html lang="{lang}" class="transition-colors duration-300">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impressum | L8teNever</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {{
-            font-family: 'Google Sans', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }}
-    </style>
-</head>
-<body class="flex items-center justify-center p-4">
-    <div class="max-w-2xl w-full bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 lg:p-12">
-        <a href="/{lang}/" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-6 font-semibold">
+    with open('index.html', 'r', encoding='utf-8') as f:
+        html = f.read()
+    
+    # Füge spezielle Marker für Impressum-Content hinzu
+    inject_script = f"""
+    <script>
+        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.siteContent = {json.dumps(content)};
+        window.currentLang = '{lang}';
+        window.currentPage = 'impressum';
+    </script>
+    """
+    
+    html = html.replace('</head>', inject_script + '</head>')
+    
+    # Ersetze den Hauptinhalt mit Impressum
+    impressum_content = f"""
+    <div class="max-w-4xl mx-auto p-8 lg:p-16">
+        <a href="/{lang}/" class="inline-flex items-center text-[var(--m3-primary)] hover:opacity-80 mb-8 font-semibold transition-opacity">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             {'Zurück' if lang == 'de' else 'Back'}
         </a>
         
-        <h1 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white">
-            {'Impressum' if lang == 'de' else 'Legal Notice'}
-        </h1>
-        
-        <div class="prose prose-lg dark:prose-invert max-w-none">
-            <p class="text-gray-700 dark:text-gray-300 mb-4">
-                <strong>L8teNever</strong><br>
-                Musterstraße 123<br>
-                12345 Berlin<br>
-                Deutschland
-            </p>
+        <div class="android-card p-8 lg:p-12 bg-[var(--m3-surface-variant)] shadow-lg">
+            <h1 class="text-4xl lg:text-5xl font-bold mb-8 text-[var(--m3-on-surface)]">
+                {'Impressum' if lang == 'de' else 'Legal Notice'}
+            </h1>
             
-            <p class="text-gray-700 dark:text-gray-300 mb-4">
-                <strong>E-Mail:</strong> hello@l8tenever.com
-            </p>
-            
-            <p class="text-gray-700 dark:text-gray-300 mb-4">
-                <strong>{'Verantwortlich für den Inhalt' if lang == 'de' else 'Responsible for content'}:</strong><br>
-                L8teNever
-            </p>
+            <div class="space-y-6 text-[var(--m3-on-surface)]">
+                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg leading-relaxed">
+                        <strong class="block mb-2">L8teNever</strong>
+                        Musterstraße 123<br>
+                        12345 Berlin<br>
+                        Deutschland
+                    </p>
+                </div>
+                
+                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg">
+                        <strong class="block mb-2">E-Mail:</strong>
+                        <a href="mailto:hello@l8tenever.com" class="text-[var(--m3-primary)] hover:opacity-80 transition-opacity">
+                            hello@l8tenever.com
+                        </a>
+                    </p>
+                </div>
+                
+                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg">
+                        <strong class="block mb-2">{'Verantwortlich für den Inhalt' if lang == 'de' else 'Responsible for content'}:</strong>
+                        L8teNever
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
     """
-    return render_template_string(impressum_html)
+    
+    # Ersetze den page-overview Inhalt
+    html = html.replace('<section id="page-overview"', f'<section id="page-overview" style="display:none;"')
+    html = html.replace('</body>', impressum_content + '</body>')
+    
+    return render_template_string(html)
 
 
 @app.route('/<lang>/datenschutz/')
 def datenschutz(lang):
-    """Datenschutz-Seite"""
+    """Datenschutz-Seite im Material Design"""
     lang = validate_language(lang)
+    content = load_content()
     
     title = 'Datenschutz' if lang == 'de' else 'Privacy Policy'
     back_text = 'Zurück' if lang == 'de' else 'Back'
     
-    datenschutz_html = f"""
-<!DOCTYPE html>
-<html lang="{lang}" class="transition-colors duration-300">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | L8teNever</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {{
-            font-family: 'Google Sans', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }}
-    </style>
-</head>
-<body class="flex items-center justify-center p-4">
-    <div class="max-w-2xl w-full bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 lg:p-12">
-        <a href="/{lang}/" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-6 font-semibold">
+    with open('index.html', 'r', encoding='utf-8') as f:
+        html = f.read()
+    
+    inject_script = f"""
+    <script>
+        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.siteContent = {json.dumps(content)};
+        window.currentLang = '{lang}';
+        window.currentPage = 'datenschutz';
+    </script>
+    """
+    
+    html = html.replace('</head>', inject_script + '</head>')
+    
+    datenschutz_content = f"""
+    <div class="max-w-4xl mx-auto p-8 lg:p-16">
+        <a href="/{lang}/" class="inline-flex items-center text-[var(--m3-primary)] hover:opacity-80 mb-8 font-semibold transition-opacity">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             {back_text}
         </a>
         
-        <h1 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900 dark:text-white">
-            {title}
-        </h1>
-        
-        <div class="prose prose-lg dark:prose-invert max-w-none">
-            <p class="text-gray-700 dark:text-gray-300 mb-4">
-                {'Diese Website verwendet keine Cookies und kein Tracking.' if lang == 'de' else 'This website does not use cookies or tracking.'}
-            </p>
+        <div class="android-card p-8 lg:p-12 bg-[var(--m3-surface-variant)] shadow-lg">
+            <h1 class="text-4xl lg:text-5xl font-bold mb-8 text-[var(--m3-on-surface)]">
+                {title}
+            </h1>
             
-            <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
-                {'Datenverarbeitung' if lang == 'de' else 'Data Processing'}
-            </h2>
-            <p class="text-gray-700 dark:text-gray-300 mb-4">
-                {'Wir verarbeiten keine personenbezogenen Daten. Die Website ist rein funktional und speichert keine Benutzerinformationen.' if lang == 'de' else 'We do not process any personal data. This website is purely functional and does not store any user information.'}
-            </p>
-            
-            <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
-                {'Server-Logs' if lang == 'de' else 'Server Logs'}
-            </h2>
-            <p class="text-gray-700 dark:text-gray-300 mb-4">
-                {'Technisch bedingt werden beim Zugriff auf die Website temporäre Verbindungsdaten (IP-Adresse, Zeitstempel) im Server-Log gespeichert. Diese Daten werden nicht ausgewertet und nach 24 Stunden automatisch gelöscht.' if lang == 'de' else 'For technical reasons, temporary connection data (IP address, timestamp) is stored in the server log when accessing the website. This data is not analyzed and is automatically deleted after 24 hours.'}
-            </p>
+            <div class="space-y-6 text-[var(--m3-on-surface)]">
+                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg leading-relaxed">
+                        {'Diese Website verwendet keine Cookies und kein Tracking.' if lang == 'de' else 'This website does not use cookies or tracking.'}
+                    </p>
+                </div>
+                
+                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <h2 class="text-2xl font-bold mb-4 text-[var(--m3-on-surface)]">
+                        {'Datenverarbeitung' if lang == 'de' else 'Data Processing'}
+                    </h2>
+                    <p class="text-lg leading-relaxed opacity-80">
+                        {'Wir verarbeiten keine personenbezogenen Daten. Die Website ist rein funktional und speichert keine Benutzerinformationen.' if lang == 'de' else 'We do not process any personal data. This website is purely functional and does not store any user information.'}
+                    </p>
+                </div>
+                
+                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <h2 class="text-2xl font-bold mb-4 text-[var(--m3-on-surface)]">
+                        {'Server-Logs' if lang == 'de' else 'Server Logs'}
+                    </h2>
+                    <p class="text-lg leading-relaxed opacity-80">
+                        {'Technisch bedingt werden beim Zugriff auf die Website temporäre Verbindungsdaten (IP-Adresse, Zeitstempel) im Server-Log gespeichert. Diese Daten werden nicht ausgewertet und nach 24 Stunden automatisch gelöscht.' if lang == 'de' else 'For technical reasons, temporary connection data (IP address, timestamp) is stored in the server log when accessing the website. This data is not analyzed and is automatically deleted after 24 hours.'}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
     """
-    return render_template_string(datenschutz_html)
+    
+    html = html.replace('<section id="page-overview"', f'<section id="page-overview" style="display:none;"')
+    html = html.replace('</body>', datenschutz_content + '</body>')
+    
+    return render_template_string(html)
 
 
 @app.route('/admin.js')

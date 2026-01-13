@@ -34,9 +34,15 @@
             font-family: 'Google Sans', sans-serif;
             background-color: var(--m3-surface);
             color: var(--m3-on-surface);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.2s ease;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            opacity: 1;
+        }
+
+        /* Smooth Page Load */
+        body.loading {
+            opacity: 0;
         }
 
         .android-card {
@@ -194,7 +200,7 @@
     </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen" style="opacity: 0;">
 
     <!-- OVERVIEW VIEW -->
     <section id="page-overview"
@@ -648,22 +654,47 @@
         setTheme(systemPrefersDark.matches);
 
         function changeLang(lang) {
-            // Redirect zur neuen Sprach-URL
-            window.location.href = `/${lang}/`;
+            // Smooth Sprach-Wechsel mit Fade-Out/In
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = `/${lang}/`;
+            }, 200);
         }
 
         function navigateToPage(page) {
-            // Navigiere zur entsprechenden URL
-            window.location.href = `/${currentLang}/${page === 'overview' ? '' : page + '/'}`;
+            // Navigiere zur entsprechenden Seite ohne Reload
+            const targetPage = page === 'overview' ? 'overview' : page;
+
+            // Update URL ohne Reload
+            const newUrl = `/${currentLang}/${page === 'overview' ? '' : page + '/'}`;
+            window.history.pushState({ page: targetPage }, '', newUrl);
+
+            // Wechsle zur Seite
+            switchPage(targetPage);
         }
 
         function navigateToImpressum() {
-            window.location.href = `/${currentLang}/impressum/`;
+            // Smooth Transition zu Impressum
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = `/${currentLang}/impressum/`;
+            }, 200);
         }
 
         function navigateToDatenschutz() {
-            window.location.href = `/${currentLang}/datenschutz/`;
+            // Smooth Transition zu Datenschutz
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = `/${currentLang}/datenschutz/`;
+            }, 200);
         }
+
+        // Browser Back/Forward Button Support
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.page) {
+                switchPage(event.state.page);
+            }
+        });
 
         function toggleOverlay(id) {
             const overlay = document.getElementById(id);
@@ -766,6 +797,11 @@
             if (targetPage !== 'overview') {
                 switchPage(targetPage);
             }
+
+            // Smooth Fade-In beim Laden
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 50);
         };
     </script>
     <script src="admin.js"></script>

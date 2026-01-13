@@ -80,7 +80,7 @@ Die Website verfügt über einen geschützten Admin-Bereich zum Bearbeiten der I
 ### Standard-Zugangsdaten
 
 - **Username**: `admin`
-- **Password**: `admin123`
+- **Password**: `L8teNever2026!`
 
 ⚠️ **WICHTIG**: Ändere diese Zugangsdaten für Produktionsumgebungen!
 

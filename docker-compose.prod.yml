@@ -14,7 +14,7 @@ services:
       
       # Admin-Zugangsdaten (WICHTIG: Ändere diese Werte für Produktion!)
       - ADMIN_USER=admin
-      - ADMIN_PASS=admin123
+      - ADMIN_PASS=L8teNever2026!
       
       # Secret Key für Sessions (WICHTIG: Ändere diesen Wert für Produktion!)
       - SECRET_KEY=l8tenever-secret-key-change-in-production-2026
