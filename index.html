@@ -199,6 +199,31 @@
             justify-content: center;
             transition: all 0.2s;
         }
+
+        .admin-tab-btn.active {
+            background-color: var(--m3-primary);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-tab-btn:not(.active) {
+            opacity: 0.6;
+            color: var(--m3-on-surface);
+        }
+
+        .admin-tab-btn:not(.active):hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 
@@ -490,76 +515,153 @@
 
     <!-- Edit Modal -->
     <div id="edit-modal" class="legal-overlay" onclick="closeOverlayOnClick(event, 'edit-modal')">
-        <div class="legal-content text-[var(--m3-on-surface)]">
+        <div class="legal-content text-[var(--m3-on-surface)] !max-w-4xl">
             <span class="close-handle"></span>
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-2xl lg:text-4xl font-bold">Content bearbeiten</h2>
-                <button onclick="toggleEdit()"
-                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
-                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Inhalte verwalten</h2>
+                <button onclick="toggleEdit()" class="p-2 hover:bg-black/10 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
-                    </svg></button>
-            </div>
-            <form onsubmit="handleSaveContent(event)" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Name</label>
-                    <input type="text" id="edit-name"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Untertitel (DE)</label>
-                    <input type="text" id="edit-subtitle-de"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Alter</label>
-                    <input type="text" id="edit-age"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Status (DE)</label>
-                    <input type="text" id="edit-status-de"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Vibe</label>
-                    <input type="text" id="edit-vibe"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Standort</label>
-                    <input type="text" id="edit-location"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">GitHub URL</label>
-                    <input type="url" id="edit-github"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Instagram URL</label>
-                    <input type="url" id="edit-instagram"
-                        class="w-full p-3 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div id="edit-success"
-                    class="hidden p-4 bg-green-500/20 text-green-600 dark:text-green-400 rounded-2xl text-sm font-bold">
-                </div>
-                <div id="edit-error"
-                    class="hidden p-4 bg-red-500/20 text-red-600 dark:text-red-400 rounded-2xl text-sm font-bold"></div>
-                <button type="submit"
-                    class="w-full p-4 bg-[var(--m3-primary)] text-white rounded-2xl font-bold hover:opacity-90 transition-opacity">
-                    Speichern
+                    </svg>
                 </button>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div
+                class="flex space-x-2 mb-8 bg-[var(--m3-surface-variant)] p-1 rounded-2xl overflow-x-auto no-scrollbar">
+                <button onclick="switchAdminTab('profile')" id="tab-btn-profile"
+                    class="admin-tab-btn active px-6 py-2 rounded-xl font-bold transition-all">Profil</button>
+                <button onclick="switchAdminTab('hub')" id="tab-btn-hub"
+                    class="admin-tab-btn px-6 py-2 rounded-xl font-bold transition-all">Hub-Buttons</button>
+                <button onclick="switchAdminTab('legal')" id="tab-btn-legal"
+                    class="admin-tab-btn px-6 py-2 rounded-xl font-bold transition-all">Rechtliches</button>
+            </div>
+
+            <form onsubmit="handleSaveContent(event)">
+                <!-- Tab: Profil -->
+                <div id="admin-tab-profile" class="admin-tab-content space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Name</label>
+                            <input type="text" id="edit-name"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Untertitel (DE)</label>
+                            <input type="text" id="edit-subtitle-de"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Alter</label>
+                            <input type="text" id="edit-age"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Status (DE)</label>
+                            <input type="text" id="edit-status-de"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Vibe</label>
+                            <input type="text" id="edit-vibe"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Standort</label>
+                            <input type="text" id="edit-location"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">GitHub URL</label>
+                            <input type="url" id="edit-github"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Instagram URL</label>
+                            <input type="url" id="edit-instagram"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Hub-Buttons -->
+                <div id="admin-tab-hub" class="admin-tab-content hidden space-y-4">
+                    <div id="hub-buttons-editor" class="max-h-[50vh] overflow-y-auto pr-2 no-scrollbar">
+                        <!-- Wird via admin.js befüllt -->
+                    </div>
+                </div>
+
+                <!-- Tab: Rechtliches -->
+                <div id="admin-tab-legal" class="admin-tab-content hidden space-y-6">
+                    <div class="space-y-4">
+                        <h3 class="font-bold opacity-60 ml-2">Impressum</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="edit-impressum-company" placeholder="Firma / Name"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                            <input type="text" id="edit-impressum-email" placeholder="E-Mail"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                            <input type="text" id="edit-impressum-address1" placeholder="Straße"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                            <input type="text" id="edit-impressum-address2" placeholder="PLZ Ort"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                            <input type="text" id="edit-impressum-country" placeholder="Land"
+                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="font-bold opacity-60 ml-2">Datenschutz (Deutsch)</h3>
+                        <textarea id="edit-privacy-intro-de" placeholder="Einleitung"
+                            class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none h-24 mb-2"></textarea>
+                        <textarea id="edit-privacy-processing-de" placeholder="Datenverarbeitung"
+                            class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none h-24 mb-2"></textarea>
+                        <textarea id="edit-privacy-logs-de" placeholder="Server Logs"
+                            class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none h-24"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col gap-3">
+                    <div id="edit-success"
+                        class="hidden p-4 bg-green-500/20 text-green-600 rounded-2xl text-center font-bold"></div>
+                    <div id="edit-error"
+                        class="hidden p-4 bg-red-500/20 text-red-600 rounded-2xl text-center font-bold"></div>
+                    <button type="submit"
+                        class="w-full p-4 bg-[var(--m3-primary)] text-white rounded-3xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all">
+                        Alle Änderungen speichern
+                    </button>
+                </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Hub Button Editor Sub-Modal -->
+    <div id="hub-button-modal" class="legal-overlay z-[70]" onclick="closeOverlayOnClick(event, 'hub-button-modal')">
+        <div class="legal-content text-[var(--m3-on-surface)] !max-w-md">
+            <h3 class="text-xl font-bold mb-6">Hub-Button bearbeiten</h3>
+            <div class="space-y-4">
+                <input type="text" id="hub-btn-name-de" placeholder="Button Name"
+                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                <input type="text" id="hub-btn-desc-de" placeholder="Beschreibung"
+                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                <input type="text" id="hub-btn-url" placeholder="URL (https://...)"
+                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                <select id="hub-btn-icon"
+                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
+                    <option value="study">Study Icon</option>
+                    <option value="fuel">Fuel Icon</option>
+                    <option value="habbit">Habits Icon</option>
+                    <option value="id">Identity Icon</option>
+                    <option value="flow">Flow Icon</option>
+                    <option value="bot">Bot Icon</option>
+                </select>
+                <div class="flex gap-2">
+                    <button onclick="saveHubButton()"
+                        class="flex-1 p-4 bg-[var(--m3-primary)] text-white rounded-2xl font-bold">Übernehmen</button>
+                    <button onclick="cancelHubButtonEdit()"
+                        class="flex-1 p-4 bg-[var(--m3-surface-variant)] rounded-2xl font-bold">Abbrechen</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -748,20 +850,21 @@
 
         function renderHub() {
             const grid = document.getElementById('hub-cards-grid');
-            const cards = [
-                { id: 'L8teStudy', desc: 'study_desc', icon: projectIcons.study },
-                { id: 'L8teFuel', desc: 'fuel_desc', icon: projectIcons.fuel },
-                { id: 'L8teHabbit', desc: 'habbit_desc', icon: projectIcons.habbit },
-                { id: 'L8teID', desc: 'id_desc', icon: projectIcons.id },
-                { id: 'L8teFlow', desc: 'flow_desc', icon: projectIcons.flow },
-                { id: 'L8teBot', desc: 'bot_desc', icon: projectIcons.bot }
-            ];
-            grid.innerHTML = cards.map(c => `
-                <a href="#" class="android-card p-5 lg:p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-4">
-                    <div class="p-3 bg-white/40 rounded-2xl shrink-0">${c.icon}</div>
+            const buttons = (window.siteContent && window.siteContent.hub_buttons) ? window.siteContent.hub_buttons : [];
+
+            if (buttons.length === 0) {
+                grid.innerHTML = '<p class="opacity-50 text-center col-span-full py-10">Keine Buttons konfiguriert.</p>';
+                return;
+            }
+
+            grid.innerHTML = buttons.map(c => `
+                <a href="${c.url}" target="_blank" class="android-card p-5 lg:p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-4">
+                    <div class="p-3 bg-white/40 rounded-2xl shrink-0">
+                        ${projectIcons[c.icon] || projectIcons.study}
+                    </div>
                     <div>
-                        <span class="block font-bold text-lg lg:text-xl leading-tight">${c.id}</span>
-                        <span class="text-xs opacity-60" data-i18n="${c.desc}">${translations.de[c.desc]}</span>
+                        <span class="block font-bold text-lg lg:text-xl leading-tight">${c.name_de}</span>
+                        <span class="text-xs opacity-60">${c.desc_de}</span>
                     </div>
                 </a>
             `).join('');

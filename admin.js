@@ -276,6 +276,17 @@ async function handleSaveContent(event) {
     }
 }
 
+function switchAdminTab(tabId) {
+    // Buttons resetten
+    document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+    // Tab Inhalte verstecken
+    document.querySelectorAll('.admin-tab-content').forEach(content => content.classList.add('hidden'));
+
+    // Aktiven Tab/Button anzeigen
+    document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+    document.getElementById(`admin-tab-${tabId}`).classList.remove('hidden');
+}
+
 // Init beim Laden
 document.addEventListener('DOMContentLoaded', () => {
     if (window.isLoggedIn) {
