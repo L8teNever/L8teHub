@@ -410,11 +410,3 @@ if __name__ == "__main__":
     HOST = os.environ.get('HOST', '0.0.0.0')
     
     run_server(port=PORT, host=HOST)
-
-
-if __name__ == "__main__":
-    # Port aus Umgebungsvariable oder Standard
-    PORT = int(os.environ.get('PORT', 8000))
-    HOST = os.environ.get('HOST', '0.0.0.0')
-    
-    run_server(port=PORT, host=HOST)

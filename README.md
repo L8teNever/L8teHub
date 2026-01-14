@@ -1,171 +1,85 @@
-# L8teNever Website
+# 🌌 L8teHub - Modern Material You Hub
 
-Eine moderne, responsive Website mit Material You Design (Android 16 inspiriert).
+![L8teHub Banner](https://img.shields.io/badge/UI-Material_You-blue?style=for-the-badge&logo=android)
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-## 🚀 Features
+Eine moderne, hochgradig anpassbare Hub-Website mit **Material You Design** (Android 16 inspiriert). Perfekt für Portfolios, Link-Sammlungen oder als Schaltzentrale für deine digitalen Projekte.
 
-- **Material You Design**: Moderne UI mit dynamischen Farbschemata
-- **Dark Mode**: Automatische Erkennung und manueller Toggle
-- **Mehrsprachig**: Deutsch & Englisch mit URL-basierter Navigation (/de/, /en/)
-- **Responsive**: Optimiert für Desktop, Tablet und Mobile
-- **Animationen**: Flüssige Übergänge und Micro-Interactions
-- **Admin-Login**: Geschützter Bereich zum Bearbeiten der Inhalte (ohne Registrierung)
-- **Content-Management**: Einfaches Bearbeiten von Texten, Links und Profil-Informationen
-- **Sicherheit**: 
-  - ✓ Rate Limiting (5 Login-Versuche / 5 Minuten)
-  - ✓ CSRF Protection
-  - ✓ Security Headers (CSP, X-Frame-Options, etc.)
-  - ✓ Input Validation & Sanitization
-  - ✓ Sichere Session-Cookies
+---
 
-## 📋 Voraussetzungen
+## ✨ Features
 
-- Python 3.11 oder höher
-- Docker & Docker Compose (optional)
+- **🎨 Android 16 Visuals**: Modernstes UI-Design mit dynamischen Farbschemata (Material Design 3).
+- **🌓 Adaptive Themes**: Automatischer Dark Mode mit manuellem Toggle für erstklassige Ästhetik.
+- **🌍 Mehrsprachigkeit**: Vollständige Unterstützung für Deutsch und Englisch (URL-gesteuert).
+- **📱 Responsive by Design**: Nahtlose Erfahrung auf Desktop, Tablet und Smartphone.
+- **⚙️ Dynamic Content**: Zentrale Steuerung aller Inhalte über Umgebungsvariablen oder JSON.
+- **🛡️ Secure & Lightweight**: Flask-Backend mit eingebauten Security Headers (CSP, HSTS, etc.) und Rate Limiting.
 
-## 🔧 Installation & Start
+---
 
-### Methode 1: Direkt mit Python
+## 🚀 Schnellstart
+
+### 🐳 Mit Docker (Empfohlen)
+
+Das Projekt ist vollständig für Docker optimiert. Nutze das mitgelieferte Docker Compose für ein One-Click Setup:
 
 ```bash
-# Repository klonen
-git clone <repository-url>
-cd L8teHubb
+# Starten des Hubs
+docker-compose up -d
+```
+
+### 🐍 Mit Python
+
+Falls du Docker nicht nutzen möchtest, kannst du den Server direkt mit Python starten:
+
+```bash
+# Abhängigkeiten installieren
+pip install -r requirements.txt
 
 # Server starten
 python server.py
 ```
+*Besuche anschließend `http://localhost:8000/de/` in deinem Browser.*
 
-Die Website ist dann unter `http://localhost:8000` erreichbar.
+---
 
-### Methode 2: Mit Docker
+## 🛠️ Konfiguration
 
-```bash
-# Docker Image bauen und Container starten
-docker-compose up -d
+Alle wichtigen Informationen lassen sich einfach über die `docker-compose.yml` (Umgebungsvariablen) anpassen:
 
-# Logs anzeigen
-docker-compose logs -f
+| Variable | Beschreibung | Standard |
+| :--- | :--- | :--- |
+| `ADMIN_USER` | Nutzername für den Admin-Bereich | `admin` |
+| `ADMIN_PASS` | Passwort für den Admin-Bereich | `admin123` |
+| `HUB_NAME` | Dein Name / Projektname | `L8teNever` |
+| `HUB_LOCATION` | Dein Standort | `Deutschland` |
+| `SECRET_KEY` | Schlüssel für Sessions | *Zufällig* |
 
-# Container stoppen
-docker-compose down
+---
+
+## 📂 Projektstruktur
+
+```text
+L8teHub/
+├── index.html          # Core UI (Material You Design System)
+├── server.py           # Flask Backend & API
+├── content.json        # Dynamische Inhalte (Optional)
+├── Dockerfile          # Container-Definition
+├── docker-compose.yml  # Deployment-Konfiguration
+└── requirements.txt    # Python-Packages
 ```
 
-### Methode 3: Docker ohne Compose
+---
 
-```bash
-# Image bauen
-docker build -t l8tenever-web .
+## 📜 Lizenz & Kontakt
 
-# Container starten
-docker run -d -p 8000:8000 --name l8tenever-website l8tenever-web
+© 2026 **L8teNever** - Alle Rechte vorbehalten.
 
-# Container stoppen
-docker stop l8tenever-website
-docker rm l8tenever-website
-```
+- **GitHub**: [@L8teNever](https://github.com)
+- **Instagram**: [@L8teNever](https://instagram.com)
+- **Email**: [hello@l8tenever.com](mailto:hello@l8tenever.com)
 
-## 🌐 Zugriff
-
-- **Deutsch**: http://localhost:8000/de/
-- **English**: http://localhost:8000/en/
-- **Netzwerk**: http://<deine-ip>:8000/de/
-
-Die Sprache wird über die URL gesteuert. Wechsle zwischen `/de/` und `/en/` für Deutsch und Englisch.
-
-## 🔐 Admin-Login
-
-Die Website verfügt über einen geschützten Admin-Bereich zum Bearbeiten der Inhalte.
-
-### Standard-Zugangsdaten
-
-- **Username**: `admin`
-- **Password**: `L8teNever2026!`
-
-⚠️ **WICHTIG**: Ändere diese Zugangsdaten für Produktionsumgebungen!
-
-### Zugangsdaten ändern
-
-#### Für Docker (empfohlen):
-
-Bearbeite die `docker-compose.yml` Datei und ändere die Umgebungsvariablen:
-
-```yaml
-environment:
-  - ADMIN_USER=dein_username
-  - ADMIN_PASS=dein_sicheres_passwort
-  - SECRET_KEY=dein_geheimer_schlüssel
-```
-
-Dann starte den Container neu:
-```bash
-docker-compose down
-docker-compose up -d
-```
-
-#### Für direkten Python-Start:
-
-Setze die Umgebungsvariablen vor dem Start:
-
-**Windows (PowerShell):**
-```powershell
-$env:ADMIN_USER="dein_username"
-$env:ADMIN_PASS="dein_passwort"
-$env:SECRET_KEY="dein_secret"
-python server.py
-```
-
-**Linux/Mac:**
-```bash
-export ADMIN_USER="dein_username"
-export ADMIN_PASS="dein_passwort"
-export SECRET_KEY="dein_secret"
-python server.py
-```
-
-### Content bearbeiten
-
-1. Klicke auf "Login" im Footer
-2. Melde dich mit deinen Zugangsdaten an
-3. Klicke auf "Edit" im Footer
-4. Bearbeite die Felder und klicke auf "Speichern"
-5. Die Änderungen werden in `content.json` gespeichert und bleiben auch nach Container-Neustarts erhalten
-
-## 📁 Projektstruktur
-
-```
-L8teHubb/
-├── index.html          # Haupt-HTML-Datei
-├── admin.js            # Admin-Login und Content-Management
-├── server.py           # Flask-Server mit API-Endpunkten
-├── requirements.txt    # Python-Abhängigkeiten
-├── content.json        # Gespeicherte Inhalte (wird automatisch erstellt)
-├── Dockerfile          # Docker-Konfiguration
-├── docker-compose.yml  # Docker Compose Setup (enthält alle Konfigurationen)
-├── .gitignore          # Git-Ausschlüsse
-└── README.md           # Diese Datei
-```
-
-**Hinweis**: Alle Konfigurationen (Admin-Zugangsdaten, etc.) sind direkt in der `docker-compose.yml` definiert - keine separate `.env` Datei nötig!
-
-## 🎨 Technologien
-
-- **Frontend**: HTML5, CSS3 (Tailwind CSS), Vanilla JavaScript
-- **Backend**: Python 3.11 (http.server)
-- **Design**: Material You / Material Design 3
-- **Fonts**: Google Sans
-- **Container**: Docker
-
-## 🔒 Sicherheit
-
-Der Server läuft standardmäßig auf `0.0.0.0:8000` und ist im Netzwerk erreichbar. Für Produktionsumgebungen sollte ein Reverse Proxy (nginx, Apache) mit SSL/TLS verwendet werden.
-
-## 📝 Lizenz
-
-© 2026 L8teNever - Alle Rechte vorbehalten
-
-## 🤝 Kontakt
-
-- GitHub: https://github.com
-- Instagram: https://instagram.com
-- E-Mail: hello@l8tenever.com
+---
+*Developed with ❤️ by L8teNever*
