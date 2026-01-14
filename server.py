@@ -108,6 +108,31 @@ def load_content():
     content['email'] = os.environ.get('HUB_EMAIL', content['email'])
     content['address'] = os.environ.get('HUB_ADDRESS', content['address'])
 
+    # Haupt-Links (z.B. GitHub, Instagram oder eigene)
+    main_links = []
+    
+    # Standard-Links wenn vorhanden
+    if os.environ.get('HUB_GITHUB_URL'):
+        main_links.append({'id': 'link-github', 'name': 'GitHub', 'url': os.environ.get('HUB_GITHUB_URL'), 'icon': 'github', 'desc_de': 'Meine Projekte', 'desc_en': 'My Projects'})
+    if os.environ.get('HUB_INSTAGRAM_URL'):
+        main_links.append({'id': 'link-instagram', 'name': 'Instagram', 'url': os.environ.get('HUB_INSTAGRAM_URL'), 'icon': 'instagram', 'desc_de': 'Folge mir', 'desc_en': 'Follow me'})
+
+    # Zusätzliche Links: HUB_MAIN_LINK_1=Name | URL | Icon | Desc DE | Desc EN
+    for i in range(1, 6):
+        link_val = os.environ.get(f'HUB_MAIN_LINK_{i}')
+        if link_val:
+            parts = [p.strip() for p in link_val.split('|')]
+            if len(parts) >= 5:
+                main_links.append({
+                    'id': f'link-custom-{i}',
+                    'name': parts[0],
+                    'url': parts[1],
+                    'icon': parts[2],
+                    'desc_de': parts[3],
+                    'desc_en': parts[4]
+                })
+    content['main_links'] = main_links
+
     # Hub Buttons als JSON String (mit Auto-ID falls fehlt)
     buttons_json = os.environ.get('HUB_BUTTONS')
     if buttons_json:
@@ -141,6 +166,41 @@ def load_content():
     
     if env_buttons:
         content['hub_buttons'] = env_buttons
+
+    # Dynamische Info-Karten für "Über mich"
+    about_info = []
+    
+    # Standard-Infos (nur hinzufügen wenn vorhanden)
+    def add_info(label_de, label_en, val_de, val_en):
+        if val_de or val_en:
+            about_info.append({
+                'label_de': label_de,
+                'label_en': label_en,
+                'value_de': val_de or val_en,
+                'value_en': val_en or val_de
+            })
+
+    add_info('Alter', 'Age', os.environ.get('HUB_AGE'), os.environ.get('HUB_AGE'))
+    add_info('Status', 'Status', os.environ.get('HUB_STATUS_DE'), os.environ.get('HUB_STATUS_EN'))
+    add_info('Vibe', 'Vibe', os.environ.get('HUB_VIBE'), os.environ.get('HUB_VIBE'))
+    add_info('Standort', 'Location', os.environ.get('HUB_LOCATION'), os.environ.get('HUB_LOCATION'))
+
+    # Zusätzliche flexible Infos: HUB_INFO_1=Label DE | Label EN | Value DE | Value EN
+    for i in range(1, 11):
+        info_val = os.environ.get(f'HUB_INFO_{i}')
+        if info_val:
+            parts = [p.strip() for p in info_val.split('|')]
+            if len(parts) >= 4:
+                add_info(parts[0], parts[1], parts[2], parts[3])
+
+    content['about_info'] = about_info
+
+    # Interessen (Komma-getrennte Liste)
+    interests_str = os.environ.get('HUB_INTERESTS')
+    if interests_str:
+        content['interests'] = [i.strip() for i in interests_str.split(',')]
+    elif 'interests' not in content:
+        content['interests'] = ['UI/UX', 'Branding', 'Coding']
 
     # Impressum
     content['impressum']['company'] = os.environ.get('HUB_IMPRESSUM_COMPANY', content['impressum']['company'])
@@ -266,14 +326,13 @@ def about(lang):
 
 @app.route('/<lang>/impressum/')
 def impressum(lang):
-    """Impressum-Seite im Material Design"""
+    """Impressum-Seite (Client-side rendering)"""
     lang = validate_language(lang)
     content = load_content()
     
     with open('index.html', 'r', encoding='utf-8') as f:
         html = f.read()
     
-    # Füge spezielle Marker für Impressum-Content hinzu
     inject_script = f"""
     <script>
         window.isLoggedIn = false;
@@ -282,69 +341,15 @@ def impressum(lang):
         window.currentPage = 'impressum';
     </script>
     """
-    
     html = html.replace('</head>', inject_script + '</head>')
-    
-    # Ersetze den Hauptinhalt mit Impressum
-    impressum_content = f"""
-    <div class="max-w-4xl mx-auto p-8 lg:p-16">
-        <a href="/{lang}/" class="inline-flex items-center text-[var(--m3-primary)] hover:opacity-80 mb-8 font-semibold transition-opacity">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            {'Zurück' if lang == 'de' else 'Back'}
-        </a>
-        
-        <div class="android-card p-8 lg:p-12 bg-[var(--m3-surface-variant)] shadow-lg">
-            <h1 class="text-4xl lg:text-5xl font-bold mb-8 text-[var(--m3-on-surface)]">
-                {'Impressum' if lang == 'de' else 'Legal Notice'}
-            </h1>
-            
-            <div class="space-y-6 text-[var(--m3-on-surface)]">
-                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <p class="text-lg leading-relaxed">
-                        <strong class="block mb-2">{content['impressum']['company']}</strong>
-                        {content['impressum']['address_line1']}<br>
-                        {content['impressum']['address_line2']}<br>
-                        {content['impressum']['country']}
-                    </p>
-                </div>
-                
-                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <p class="text-lg">
-                        <strong class="block mb-2">E-Mail:</strong>
-                        <a href="mailto:{content['impressum']['email']}" class="text-[var(--m3-primary)] hover:opacity-80 transition-opacity">
-                            {content['impressum']['email']}
-                        </a>
-                    </p>
-                </div>
-                
-                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <p class="text-lg">
-                        <strong class="block mb-2">{'Verantwortlich für den Inhalt' if lang == 'de' else 'Responsible for content'}:</strong>
-                        {content['impressum']['responsible']}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    """
-    
-    # Ersetze den page-overview Inhalt
-    html = html.replace('<section id="page-overview"', f'<section id="page-overview" style="display:none;"')
-    html = html.replace('</body>', impressum_content + '</body>')
-    
     return render_template_string(html)
 
 
 @app.route('/<lang>/datenschutz/')
 def datenschutz(lang):
-    """Datenschutz-Seite im Material Design"""
+    """Datenschutz-Seite (Client-side rendering)"""
     lang = validate_language(lang)
     content = load_content()
-    
-    title = 'Datenschutz' if lang == 'de' else 'Privacy Policy'
-    back_text = 'Zurück' if lang == 'de' else 'Back'
     
     with open('index.html', 'r', encoding='utf-8') as f:
         html = f.read()
@@ -357,55 +362,7 @@ def datenschutz(lang):
         window.currentPage = 'datenschutz';
     </script>
     """
-    
     html = html.replace('</head>', inject_script + '</head>')
-    
-    datenschutz_content = f"""
-    <div class="max-w-4xl mx-auto p-8 lg:p-16">
-        <a href="/{lang}/" class="inline-flex items-center text-[var(--m3-primary)] hover:opacity-80 mb-8 font-semibold transition-opacity">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            {back_text}
-        </a>
-        
-        <div class="android-card p-8 lg:p-12 bg-[var(--m3-surface-variant)] shadow-lg">
-            <h1 class="text-4xl lg:text-5xl font-bold mb-8 text-[var(--m3-on-surface)]">
-                {title}
-            </h1>
-            
-            <div class="space-y-6 text-[var(--m3-on-surface)]">
-                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <p class="text-lg leading-relaxed">
-                        {content['privacy']['intro_de'] if lang == 'de' else content['privacy']['intro_en']}
-                    </p>
-                </div>
-                
-                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <h2 class="text-2xl font-bold mb-4 text-[var(--m3-on-surface)]">
-                        {'Datenverarbeitung' if lang == 'de' else 'Data Processing'}
-                    </h2>
-                    <p class="text-lg leading-relaxed opacity-80">
-                        {content['privacy']['data_processing_de'] if lang == 'de' else content['privacy']['data_processing_en']}
-                    </p>
-                </div>
-                
-                <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <h2 class="text-2xl font-bold mb-4 text-[var(--m3-on-surface)]">
-                        {'Server-Logs' if lang == 'de' else 'Server Logs'}
-                    </h2>
-                    <p class="text-lg leading-relaxed opacity-80">
-                        {content['privacy']['server_logs_de'] if lang == 'de' else content['privacy']['server_logs_en']}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    """
-    
-    html = html.replace('<section id="page-overview"', f'<section id="page-overview" style="display:none;"')
-    html = html.replace('</body>', datenschutz_content + '</body>')
-    
     return render_template_string(html)
 
 

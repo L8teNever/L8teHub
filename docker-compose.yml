@@ -25,6 +25,15 @@ services:
       - HUB_STATUS_EN=Student
       - HUB_VIBE=Vibecoding
       - HUB_LOCATION=Deutschland
+      - HUB_INTERESTS=UI/UX, Branding, Coding
+      
+      # Zusätzliche Info-Karten: Label DE | Label EN | Wert DE | Wert EN
+      # Wenn eine Variable (auch oben) leer bleibt, wird sie nicht angezeigt.
+      - HUB_INFO_1=Lieblingsfarbe | Favorite Color | Blau | Blue
+      
+      # Haupt-Links auf der Startseite: Name | URL | Icon (github, instagram, link) | Desc DE | Desc EN
+      - HUB_MAIN_LINK_1=Discord | https://discord.com | link | Mein Server | My Server
+      
       - HUB_GITHUB_URL=https://github.com
       - HUB_INSTAGRAM_URL=https://instagram.com
       - HUB_EMAIL=hello@l8tenever.com

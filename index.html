@@ -99,17 +99,17 @@
             transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
             border-top-left-radius: 32px;
             border-top-right-radius: 32px;
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
         }
 
         @media (min-width: 768px) {
             .legal-content {
-                width: 450px;
+                width: 500px;
                 max-height: 100vh;
                 height: 100vh;
                 border-radius: 40px 0 0 40px;
                 transform: translateX(100%);
-                padding: 3rem 2rem;
+                padding: 4rem 3rem;
             }
         }
 
@@ -231,32 +231,32 @@
 
     <!-- OVERVIEW VIEW -->
     <section id="page-overview"
-        class="page-transition max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
+        class="page-transition max-w-7xl mx-auto w-full flex flex-col md:flex-row md:min-h-screen">
         <header
-            class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center">
+            class="w-full md:w-5/12 lg:w-1/3 md:sticky md:top-0 md:h-screen flex flex-col items-center justify-center md:items-start md:text-left p-8 lg:p-16">
             <div class="relative inline-block group">
                 <div id="hub-logo"
-                    class="w-24 h-24 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-[32px] lg:rounded-[48px] shadow-2xl flex items-center justify-center text-white text-3xl lg:text-5xl font-bold transform rotate-3 transition-transform group-hover:rotate-0">
+                    class="w-24 h-24 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-[32px] lg:rounded-[48px] shadow-2xl flex items-center justify-center text-white text-3xl lg:text-5xl font-bold transition-all group-hover:scale-105">
                     LN
                 </div>
                 <div
-                    class="absolute -bottom-1 -right-1 w-6 h-6 lg:w-10 lg:h-10 bg-green-400 border-4 border-[var(--m3-surface)] rounded-full">
+                    class="absolute -bottom-0 -right-0 w-6 h-6 lg:w-10 lg:h-10 bg-green-400 border-4 border-[var(--m3-surface)] rounded-full shadow-lg">
                 </div>
             </div>
 
-            <div class="mt-6 lg:mt-10">
+            <div class="mt-8 lg:mt-12">
                 <h1 id="hub-name"
-                    class="text-3xl lg:text-5xl font-bold tracking-tight mb-2 text-[var(--m3-on-surface)]">L8teNever
+                    class="text-4xl lg:text-6xl font-bold tracking-tight mb-3 text-[var(--m3-on-surface)]">L8teNever
                 </h1>
-                <p id="hub-subtitle" class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_overview">
+                <p id="hub-subtitle" class="opacity-60 text-lg lg:text-2xl font-medium" data-i18n="subtitle_overview">
                     Digitaler Creator & Entwickler</p>
             </div>
         </header>
 
-        <main class="w-full lg:w-2/3 p-4 lg:p-16 flex flex-col">
-            <div class="space-y-4 w-full max-w-xl mx-auto lg:mx-0 lg:mt-20">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Personal Info Card -->
+        <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col transition-all">
+            <div class="space-y-6 w-full max-w-3xl mx-auto md:mx-0 md:mt-12 lg:mt-24">
+                <div id="main-links-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <!-- Standard Personal Info Button -->
                     <button onclick="switchPage('about')"
                         class="android-card p-6 lg:p-8 bg-[var(--m3-primary)] text-white flex items-center space-x-6 shadow-lg text-left">
                         <div class="p-3 bg-white/20 rounded-2xl shrink-0">
@@ -270,36 +270,7 @@
                             <span class="text-sm opacity-70" data-i18n="info_desc">Profil-Info</span>
                         </div>
                     </button>
-
-                    <!-- GitHub -->
-                    <a id="link-github" href="https://github.com" target="_blank"
-                        class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm">
-                        <div class="p-3 bg-white/20 rounded-2xl shrink-0">
-                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="block font-bold text-lg lg:text-2xl">GitHub</span>
-                            <span class="text-sm opacity-70" data-i18n="github_desc">Meine Projekte</span>
-                        </div>
-                    </a>
-
-                    <!-- Instagram -->
-                    <a id="link-instagram" href="https://instagram.com" target="_blank"
-                        class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm sm:col-span-2">
-                        <div class="p-3 bg-white/20 rounded-2xl shrink-0">
-                            <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="block font-bold text-lg lg:text-2xl">Instagram</span>
-                            <span class="text-sm opacity-70" data-i18n="insta_desc">Folge mir</span>
-                        </div>
-                    </a>
+                    <!-- Weitere Links via JS -->
                 </div>
             </div>
             <!-- Footer Placeholder Overview -->
@@ -309,127 +280,137 @@
 
     <!-- ABOUT VIEW (Personal Info Tiled) - GEFIXTER DARK MODE -->
     <section id="page-about"
-        class="page-transition hidden hidden-page max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
+        class="page-transition hidden hidden-page max-w-7xl mx-auto w-full flex flex-col md:flex-row md:min-h-screen">
         <header
-            class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center lg:text-left lg:items-start">
-            <div
-                class="w-20 h-20 lg:w-32 lg:h-32 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[40px] shadow-lg flex items-center justify-center text-white mb-6 lg:mb-10 transform -rotate-3">
-                <svg class="w-10 h-10 lg:w-16 lg:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                </svg>
+            class="w-full md:w-5/12 lg:w-1/3 md:sticky md:top-0 md:h-screen flex flex-col items-center justify-center md:items-start md:text-left p-8 lg:p-16">
+            <div class="relative inline-block group mb-8 lg:mb-12">
+                <div
+                    class="w-24 h-24 lg:w-40 lg:h-40 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[48px] shadow-lg flex items-center justify-center text-white transition-all group-hover:scale-105">
+                    <svg class="w-12 h-12 lg:w-20 lg:h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
             </div>
-            <h1 class="text-3xl lg:text-5xl font-bold tracking-tight text-[var(--m3-on-surface)]"
-                data-i18n="about_title">Über mich</h1>
-            <p class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_about">Mein Profil</p>
+            <div class="mt-0">
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3"
+                    data-i18n="about_title">Über mich</h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium" data-i18n="subtitle_about">Mein Profil</p>
+            </div>
         </header>
 
-        <main class="w-full lg:w-2/3 p-4 lg:p-16 flex flex-col justify-center">
-            <div class="grid grid-cols-2 gap-4 w-full max-w-xl mx-auto lg:mx-0">
+        <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col justify-center">
+            <div id="about-info-grid" class="grid grid-cols-2 gap-5 w-full max-w-3xl mx-auto md:mx-0">
+                <!-- Wird via JS befüllt -->
+            </div>
 
-                <!-- Reihe 1: Alter & Status -->
+            <div class="grid grid-cols-1 gap-5 w-full max-w-3xl mx-auto md:mx-0 mt-5">
+                <!-- Interessen (Volle Breite) -->
                 <div
-                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
-                        data-i18n="info_age_label">Alter</span>
-                    <span id="info-age" class="text-2xl font-bold">16</span>
-                </div>
-                <div
-                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
-                        data-i18n="info_status_label">Status</span>
-                    <span id="info-status" class="text-xl font-bold" data-i18n="info_status_value">Schüler</span>
-                </div>
-
-                <!-- Reihe 2: Vibe & Standort -->
-                <div
-                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
-                        data-i18n="info_vibe_label">Vibe</span>
-                    <span id="info-vibe" class="text-lg font-bold">Vibecoding</span>
-                </div>
-                <div
-                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
-                        data-i18n="info_loc_label">Standort</span>
-                    <span id="info-location" class="text-lg font-bold">Deutschland</span>
-                </div>
-
-                <!-- Reihe 3: Interessen (Volle Breite) -->
-                <div
-                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm col-span-2 border border-transparent dark:border-[var(--m3-outline)]/20">
+                    class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm border border-transparent dark:border-[var(--m3-outline)]/20">
                     <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-2"
                         data-i18n="info_interests_label">Interessen</span>
-                    <div class="flex flex-wrap gap-2">
-                        <span
-                            class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">UI/UX</span>
-                        <span
-                            class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">Branding</span>
-                        <span
-                            class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">Coding</span>
+                    <div id="info-interests" class="flex flex-wrap gap-2">
+                        <!-- Wird via JS befüllt -->
                     </div>
                 </div>
 
                 <!-- Zurück Button (Volle Breite) -->
                 <button onclick="switchPage('overview')"
-                    class="android-card p-5 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] font-bold flex items-center justify-center space-x-2 col-span-2 mt-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="android-card p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] font-bold flex items-center justify-center space-x-3 mt-4 hover:brightness-95">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    <span data-i18n="back_btn">Zurück</span>
+                    <span class="text-lg" data-i18n="back_btn">Zurück</span>
                 </button>
             </div>
-            <div id="footer-placeholder-about" class="mt-12 lg:mt-24"></div>
+            <div id="footer-placeholder-about" class="mt-16 lg:mt-32"></div>
         </main>
     </section>
 
-    <!-- HUB VIEW -->
-    <section id="page-hub"
-        class="page-transition hidden hidden-page max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:min-h-screen">
+    <!-- IMPRESSUM VIEW -->
+    <section id="page-impressum"
+        class="page-transition hidden hidden-page max-w-7xl mx-auto w-full flex flex-col md:flex-row md:min-h-screen">
         <header
-            class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center lg:text-left lg:items-start">
-            <div
-                class="w-20 h-20 lg:w-32 lg:h-32 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[40px] shadow-lg flex items-center justify-center text-white mb-6 lg:mb-10 transform -rotate-3">
-                <svg class="w-10 h-10 lg:w-16 lg:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-5l-5 5v-5z">
-                    </path>
-                </svg>
+            class="w-full md:w-5/12 lg:w-1/3 md:sticky md:top-0 md:h-screen flex flex-col items-center justify-center md:items-start md:text-left p-8 lg:p-16">
+            <div class="relative inline-block group mb-8 lg:mb-12">
+                <div
+                    class="w-24 h-24 lg:w-40 lg:h-40 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[48px] shadow-lg flex items-center justify-center text-white transition-all">
+                    <svg class="w-12 h-12 lg:w-20 lg:h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
             </div>
-            <h1 class="text-3xl lg:text-5xl font-bold tracking-tight text-[var(--m3-on-surface)]">L8teHub</h1>
-            <p class="opacity-60 text-base lg:text-xl font-medium text-[var(--m3-on-surface)]" data-i18n="subtitle_hub">
-                Launcher</p>
+            <div class="mt-0">
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3"
+                    data-i18n="nav_impressum">Impressum</h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium text-[var(--m3-on-surface)]"
+                    data-i18n="nav_back_info">Details</p>
+            </div>
         </header>
-
-        <main class="w-full lg:w-2/3 p-4 lg:p-16 flex flex-col justify-center">
-            <div id="hub-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-xl mx-auto lg:mx-0">
-                <!-- Content via Javascript -->
+        <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col justify-center">
+            <div id="impressum-content" class="space-y-6 w-full max-w-3xl mx-auto md:mx-0">
+                <!-- Wird via JS befüllt -->
             </div>
-            <div id="footer-placeholder-hub" class="mt-8 lg:mt-24"></div>
+            <div id="footer-placeholder-impressum" class="mt-8 lg:mt-24"></div>
+        </main>
+    </section>
+
+    <!-- DATENSCHUTZ VIEW -->
+    <section id="page-datenschutz"
+        class="page-transition hidden hidden-page max-w-7xl mx-auto w-full flex flex-col md:flex-row md:min-h-screen">
+        <header
+            class="w-full md:w-5/12 lg:w-1/3 md:sticky md:top-0 md:h-screen flex flex-col items-center justify-center md:items-start md:text-left p-8 lg:p-16">
+            <div class="relative inline-block group mb-8 lg:mb-12">
+                <div
+                    class="w-24 h-24 lg:w-40 lg:h-40 bg-[var(--m3-primary)] rounded-[32px] lg:rounded-[48px] shadow-lg flex items-center justify-center text-white transition-all">
+                    <svg class="w-12 h-12 lg:w-20 lg:h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+            <div class="mt-0">
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3"
+                    data-i18n="nav_privacy">Datenschutz</h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium text-[var(--m3-on-surface)]"
+                    data-i18n="nav_privacy_subtitle">Privacy</p>
+            </div>
+        </header>
+        <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col justify-center">
+            <div id="privacy-content" class="space-y-6 w-full max-w-3xl mx-auto md:mx-0">
+                <!-- Wird via JS befüllt -->
+            </div>
+            <div id="footer-placeholder-datenschutz" class="mt-8 lg:mt-24"></div>
         </main>
     </section>
 
     <!-- SHARED FOOTER -->
     <footer id="shared-footer" class="pt-10 pb-8 border-t border-gray-200 dark:border-gray-800 px-4 w-full">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-6 max-w-xl mx-auto lg:max-w-none">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-2xl mx-auto md:max-w-none">
 
             <!-- Navigation -->
             <div class="flex space-x-6 text-sm font-semibold opacity-50 text-[var(--m3-on-surface)]">
                 <button onclick="navigateToPage('hub')" id="btn-to-hub"
-                    class="hover:text-[var(--m3-primary)] transition-colors">L8teHub</button>
+                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all">L8teHub</button>
                 <button onclick="navigateToPage('overview')" id="btn-to-overview"
-                    class="hidden hover:text-[var(--m3-primary)] transition-colors font-bold"
+                    class="hidden hover:text-[var(--m3-primary)] hover:opacity-100 transition-all font-bold"
                     data-i18n="nav_socials">Socials</button>
-                <button onclick="navigateToImpressum()" class="hover:text-[var(--m3-primary)]"
+                <button onclick="navigateToImpressum()"
+                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all"
                     data-i18n="nav_impressum">Impressum</button>
-                <button onclick="navigateToDatenschutz()" class="hover:text-[var(--m3-primary)]"
+                <button onclick="navigateToDatenschutz()"
+                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all"
                     data-i18n="nav_privacy">Datenschutz</button>
             </div>
 
             <!-- Theme & Language -->
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleTheme()" class="theme-toggle-btn shadow-sm" id="theme-icon">
+            <div class="flex items-center space-x-6">
+                <button onclick="toggleTheme()"
+                    class="theme-toggle-btn shadow-md hover:scale-110 active:scale-95 transition-all" id="theme-icon">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="sun-icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
@@ -453,41 +434,7 @@
 
 
 
-    <!-- Overlays -->
-    <div id="impressum" class="legal-overlay" onclick="closeOverlayOnClick(event, 'impressum')">
-        <div class="legal-content text-[var(--m3-on-surface)]">
-            <span class="close-handle"></span>
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-2xl lg:text-4xl font-bold" data-i18n="nav_impressum">Impressum</h2>
-                <button onclick="toggleOverlay('impressum')"
-                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
-                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg></button>
-            </div>
-            <div class="space-y-6 opacity-80 text-lg">
-                <p><strong>L8teNever</strong><br>Musterstraße 123<br>12345 Berlin</p>
-                <p>E-Mail: hello@l8tenever.com</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="datenschutz" class="legal-overlay" onclick="closeOverlayOnClick(event, 'datenschutz')">
-        <div class="legal-content text-[var(--m3-on-surface)]">
-            <span class="close-handle"></span>
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-2xl lg:text-4xl font-bold" data-i18n="nav_privacy">Datenschutz</h2>
-                <button onclick="toggleOverlay('datenschutz')"
-                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
-                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg></button>
-            </div>
-            <p class="opacity-80 text-lg" data-i18n="privacy_text">Keine Cookies, kein Tracking. Rein funktional.</p>
-        </div>
-    </div>
+    <!-- Overlays gelöscht, da als eigene Sektionen implementiert -->
 
     <script>
         const translations = {
@@ -523,7 +470,10 @@
             habbit: '<svg class="w-6 h-6 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>',
             id: '<svg class="w-6 h-6 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>',
             flow: '<svg class="w-6 h-6 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 12l-3-3m3 3l3-3M17 8v12m0-12l-3 3m3-3l3-3"></path></svg>',
-            bot: '<svg class="w-6 h-6 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>'
+            bot: '<svg class="w-6 h-6 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>',
+            github: '<svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>',
+            instagram: '<svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>',
+            link: '<svg class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>'
         };
 
         let currentActivePage = 'overview';
@@ -555,14 +505,47 @@
                 document.getElementById('hub-logo').innerText = content.name.substring(0, 2).toUpperCase();
             }
 
-            // Social Links
-            if (content.github_url) document.getElementById('link-github').href = content.github_url;
-            if (content.instagram_url) document.getElementById('link-instagram').href = content.instagram_url;
+            // Main Links Grid
+            if (content.main_links && Array.isArray(content.main_links)) {
+                const grid = document.getElementById('main-links-grid');
+                // Erhalte den standard "Info" Button (der als erstes Item drin ist)
+                const infoBtn = grid.firstElementChild.outerHTML;
+                grid.innerHTML = infoBtn + content.main_links.map(link => `
+                    <a href="${link.url}" target="_blank" class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm group">
+                        <div class="p-3 bg-white/20 rounded-2xl shrink-0 group-hover:scale-110 transition-transform">
+                            <div class="w-7 h-7 lg:w-9 lg:h-9 text-[var(--m3-primary)]">
+                                ${projectIcons[link.icon] || projectIcons.link}
+                            </div>
+                        </div>
+                        <div>
+                            <span class="block font-bold text-lg lg:text-2xl">${link.name}</span>
+                            <span class="text-sm opacity-70">${currentLang === 'de' ? link.desc_de : link.desc_en}</span>
+                        </div>
+                    </a>
+                `).join('');
+            }
 
-            // Bio Info
-            if (content.age) document.getElementById('info-age').innerText = content.age;
-            if (content.vibe) document.getElementById('info-vibe').innerText = content.vibe;
-            if (content.location) document.getElementById('info-location').innerText = content.location;
+            // Bio Info Cards
+            if (content.about_info && Array.isArray(content.about_info)) {
+                const grid = document.getElementById('about-info-grid');
+                grid.innerHTML = content.about_info.map(info => `
+                    <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
+                        <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1">${currentLang === 'de' ? info.label_de : info.label_en}</span>
+                        <span class="text-xl lg:text-2xl font-bold">${currentLang === 'de' ? info.value_de : info.value_en}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Interessen
+            if (content.interests && Array.isArray(content.interests) && content.interests.length > 0) {
+                document.getElementById('info-interests').parentElement.classList.remove('hidden');
+                const container = document.getElementById('info-interests');
+                container.innerHTML = content.interests.map(interest => `
+                    <span class="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-lg text-xs font-bold uppercase tracking-wider">${interest}</span>
+                `).join('');
+            } else {
+                document.getElementById('info-interests').parentElement.classList.add('hidden');
+            }
 
             // Subtitle & Status are language dependent and handled by translations
         }
@@ -611,21 +594,8 @@
             switchPage(targetPage);
         }
 
-        function navigateToImpressum() {
-            // Smooth Transition zu Impressum
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                window.location.href = `/${currentLang}/impressum/`;
-            }, 200);
-        }
-
-        function navigateToDatenschutz() {
-            // Smooth Transition zu Datenschutz
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                window.location.href = `/${currentLang}/datenschutz/`;
-            }, 200);
-        }
+        function navigateToImpressum() { navigateToPage('impressum'); }
+        function navigateToDatenschutz() { navigateToPage('datenschutz'); }
 
         // Browser Back/Forward Button Support
         window.addEventListener('popstate', (event) => {
@@ -655,13 +625,15 @@
             }
 
             grid.innerHTML = buttons.map(c => `
-                <a href="${c.url}" target="_blank" class="android-card p-5 lg:p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-4">
-                    <div class="p-3 bg-white/40 rounded-2xl shrink-0">
-                        ${projectIcons[c.icon] || projectIcons.study}
+                <a href="${c.url}" target="_blank" class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-5 shadow-sm group">
+                    <div class="p-4 bg-white/30 dark:bg-white/10 rounded-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        <div class="w-8 h-8 lg:w-10 lg:h-10 text-[var(--m3-primary)]">
+                            ${projectIcons[c.icon] || projectIcons.study}
+                        </div>
                     </div>
                     <div>
-                        <span class="block font-bold text-lg lg:text-xl leading-tight">${currentLang === 'de' ? c.name_de : c.name_en}</span>
-                        <span class="text-xs opacity-60">${currentLang === 'de' ? c.desc_de : c.desc_en}</span>
+                        <span class="block font-bold text-xl lg:text-2xl leading-tight mb-1">${currentLang === 'de' ? c.name_de : c.name_en}</span>
+                        <span class="text-sm opacity-60 font-medium">${currentLang === 'de' ? c.desc_de : c.desc_en}</span>
                     </div>
                 </a>
             `).join('');
@@ -671,31 +643,39 @@
             const overview = document.getElementById('page-overview');
             const hub = document.getElementById('page-hub');
             const about = document.getElementById('page-about');
+            const impressum = document.getElementById('page-impressum');
+            const datenschutz = document.getElementById('page-datenschutz');
             const footer = document.getElementById('shared-footer');
 
-            const pages = { overview, hub, about };
+            const pages = { overview, hub, about, impressum, datenschutz };
             const placeholders = {
                 overview: document.getElementById('footer-placeholder-overview'),
                 hub: document.getElementById('footer-placeholder-hub'),
-                about: document.getElementById('footer-placeholder-about')
+                about: document.getElementById('footer-placeholder-about'),
+                impressum: document.getElementById('footer-placeholder-impressum'),
+                datenschutz: document.getElementById('footer-placeholder-datenschutz')
             };
 
             const btnHub = document.getElementById('btn-to-hub');
             const btnOverview = document.getElementById('btn-to-overview');
 
-            const currentPage = pages[currentActivePage];
-            const targetPage = pages[page];
+            const currentPage = pages[currentActivePage] || overview;
+            const targetPage = pages[page] || overview;
 
             if (currentActivePage === page) return;
 
+            // Render Legal Content if needed
+            if (page === 'impressum') renderImpressum();
+            if (page === 'datenschutz') renderPrivacy();
+
             currentPage.classList.add('page-exit');
             setTimeout(() => {
-                currentPage.classList.add('hidden');
+                Object.values(pages).forEach(p => p.classList.add('hidden'));
                 currentPage.classList.remove('page-exit');
                 targetPage.classList.remove('hidden');
                 targetPage.classList.add('page-enter');
 
-                placeholders[page].appendChild(footer);
+                if (placeholders[page]) placeholders[page].appendChild(footer);
 
                 if (page === 'overview') {
                     btnHub.classList.remove('hidden');
@@ -706,8 +686,54 @@
                 }
                 setTimeout(() => targetPage.classList.remove('page-enter'), 10);
                 currentActivePage = page;
-            }, 150); // Schneller: 150ms statt 250ms
+            }, 100);
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderImpressum() {
+            const content = window.siteContent.impressum;
+            const container = document.getElementById('impressum-content');
+            container.innerHTML = `
+                <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <h3 class="text-xl font-bold mb-4" data-i18n="nav_back_info">Details</h3>
+                    <p class="text-lg leading-relaxed">
+                        <strong class="block mb-2">${content.company}</strong>
+                        ${content.address_line1}<br>
+                        ${content.address_line2}<br>
+                        ${content.country}
+                    </p>
+                </div>
+                <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg">
+                        <strong class="block mb-2">E-Mail:</strong>
+                        <a href="mailto:${content.email}" class="text-[var(--m3-primary)] hover:opacity-80 transition-opacity font-bold">${content.email}</a>
+                    </p>
+                </div>
+                <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg">
+                        <strong class="block mb-2">${currentLang === 'de' ? 'Verantwortlich' : 'Responsible'}:</strong>
+                        ${content.responsible}
+                    </p>
+                </div>
+            `;
+        }
+
+        function renderPrivacy() {
+            const content = window.siteContent.privacy;
+            const container = document.getElementById('privacy-content');
+            container.innerHTML = `
+                <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <p class="text-lg leading-relaxed">${currentLang === 'de' ? content.intro_de : content.intro_en}</p>
+                </div>
+                <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <h3 class="text-xl font-bold mb-4">${currentLang === 'de' ? 'Datenverarbeitung' : 'Data Processing'}</h3>
+                    <p class="text-lg leading-relaxed opacity-80">${currentLang === 'de' ? content.data_processing_de : content.data_processing_en}</p>
+                </div>
+                <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
+                    <h3 class="text-xl font-bold mb-4">${currentLang === 'de' ? 'Server-Logs' : 'Server Logs'}</h3>
+                    <p class="text-lg leading-relaxed opacity-80">${currentLang === 'de' ? content.server_logs_de : content.server_logs_en}</p>
+                </div>
+            `;
         }
 
         window.onload = () => {
@@ -744,7 +770,7 @@
             updateTranslations();
 
             // Zeige die richtige Seite basierend auf window.currentPage
-            const availablePages = ['overview', 'hub', 'about'];
+            const availablePages = ['overview', 'hub', 'about', 'impressum', 'datenschutz'];
             if (targetPage !== 'overview' && availablePages.includes(targetPage)) {
                 switchPage(targetPage);
             }
