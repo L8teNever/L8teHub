@@ -27,17 +27,12 @@ ADMIN_CREDENTIALS = {
     'password_hash': hashlib.sha256(os.environ.get('ADMIN_PASS', 'admin123').encode()).hexdigest()
 }
 
-# Content-Datei
+# Content-Datei (optional, falls jemand doch eine Datei nutzen will, aber Env-Vars haben Vorrang)
 CONTENT_FILE = 'content.json'
 
 # Unterstützte Sprachen
 SUPPORTED_LANGUAGES = ['de', 'en']
 DEFAULT_LANGUAGE = 'de'
-
-# Rate Limiting
-login_attempts = defaultdict(list)
-MAX_LOGIN_ATTEMPTS = 5
-LOGIN_TIMEOUT = 300  # 5 Minuten
 
 # Standard-Content
 DEFAULT_CONTENT = {
@@ -87,46 +82,83 @@ DEFAULT_CONTENT = {
 
 
 def load_content():
-    """Lädt den Content aus der JSON-Datei"""
+    """Lädt den Content aus Umgebungsvariablen oder der JSON-Datei"""
+    content = DEFAULT_CONTENT.copy()
+    
+    # Versuche aus Datei zu laden (als Basis)
     if os.path.exists(CONTENT_FILE):
         try:
             with open(CONTENT_FILE, 'r', encoding='utf-8') as f:
-                return json.load(f)
+                content.update(json.load(f))
         except:
-            return DEFAULT_CONTENT.copy()
-    return DEFAULT_CONTENT.copy()
+            pass
 
+    # Umgebungsvariablen haben Vorrang
+    # Basis-Infos
+    content['name'] = os.environ.get('HUB_NAME', content['name'])
+    content['subtitle_de'] = os.environ.get('HUB_SUBTITLE_DE', content['subtitle_de'])
+    content['subtitle_en'] = os.environ.get('HUB_SUBTITLE_EN', content['subtitle_en'])
+    content['age'] = os.environ.get('HUB_AGE', content['age'])
+    content['status_de'] = os.environ.get('HUB_STATUS_DE', content['status_de'])
+    content['status_en'] = os.environ.get('HUB_STATUS_EN', content['status_en'])
+    content['vibe'] = os.environ.get('HUB_VIBE', content['vibe'])
+    content['location'] = os.environ.get('HUB_LOCATION', content['location'])
+    content['github_url'] = os.environ.get('HUB_GITHUB_URL', content['github_url'])
+    content['instagram_url'] = os.environ.get('HUB_INSTAGRAM_URL', content['instagram_url'])
+    content['email'] = os.environ.get('HUB_EMAIL', content['email'])
+    content['address'] = os.environ.get('HUB_ADDRESS', content['address'])
 
-def save_content(content):
-    """Speichert den Content in die JSON-Datei"""
-    with open(CONTENT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(content, f, ensure_ascii=False, indent=2)
+    # Hub Buttons als JSON String (mit Auto-ID falls fehlt)
+    buttons_json = os.environ.get('HUB_BUTTONS')
+    if buttons_json:
+        try:
+            btns = json.loads(buttons_json)
+            if isinstance(btns, list):
+                for i, b in enumerate(btns):
+                    if 'id' not in b:
+                        b['id'] = str(i + 1)
+                content['hub_buttons'] = btns
+        except:
+            print("Error parsing HUB_BUTTONS environment variable")
 
-
-def check_rate_limit(ip):
-    """Prüft Rate Limiting für Login-Versuche"""
-    now = time.time()
-    # Entferne alte Versuche
-    login_attempts[ip] = [t for t in login_attempts[ip] if now - t < LOGIN_TIMEOUT]
+    # Alternativ: Einzelne Buttons (viel einfacher zu schreiben)
+    # Format: HUB_BUTTON_1=Name DE | Name EN | Desc DE | Desc EN | URL | Icon
+    env_buttons = []
+    for i in range(1, 21):  # Unterstütze bis zu 20 Buttons
+        btn_val = os.environ.get(f'HUB_BUTTON_{i}')
+        if btn_val:
+            parts = [p.strip() for p in btn_val.split('|')]
+            if len(parts) >= 6:
+                env_buttons.append({
+                    'id': str(i),
+                    'name_de': parts[0],
+                    'name_en': parts[1],
+                    'desc_de': parts[2],
+                    'desc_en': parts[3],
+                    'url': parts[4],
+                    'icon': parts[5]
+                })
     
-    if len(login_attempts[ip]) >= MAX_LOGIN_ATTEMPTS:
-        return False
-    return True
+    if env_buttons:
+        content['hub_buttons'] = env_buttons
 
+    # Impressum
+    content['impressum']['company'] = os.environ.get('HUB_IMPRESSUM_COMPANY', content['impressum']['company'])
+    content['impressum']['address_line1'] = os.environ.get('HUB_IMPRESSUM_ADDR1', content['impressum']['address_line1'])
+    content['impressum']['address_line2'] = os.environ.get('HUB_IMPRESSUM_ADDR2', content['impressum']['address_line2'])
+    content['impressum']['country'] = os.environ.get('HUB_IMPRESSUM_COUNTRY', content['impressum']['country'])
+    content['impressum']['email'] = os.environ.get('HUB_IMPRESSUM_EMAIL', content['impressum']['email'])
+    content['impressum']['responsible'] = os.environ.get('HUB_IMPRESSUM_RESPONSIBLE', content['impressum']['responsible'])
 
-def record_login_attempt(ip):
-    """Zeichnet einen Login-Versuch auf"""
-    login_attempts[ip].append(time.time())
+    # Datenschutz
+    content['privacy']['intro_de'] = os.environ.get('HUB_PRIVACY_INTRO_DE', content['privacy']['intro_de'])
+    content['privacy']['intro_en'] = os.environ.get('HUB_PRIVACY_INTRO_EN', content['privacy']['intro_en'])
+    content['privacy']['data_processing_de'] = os.environ.get('HUB_PRIVACY_PROCESSING_DE', content['privacy']['data_processing_de'])
+    content['privacy']['data_processing_en'] = os.environ.get('HUB_PRIVACY_PROCESSING_EN', content['privacy']['data_processing_en'])
+    content['privacy']['server_logs_de'] = os.environ.get('HUB_PRIVACY_LOGS_DE', content['privacy']['server_logs_de'])
+    content['privacy']['server_logs_en'] = os.environ.get('HUB_PRIVACY_LOGS_EN', content['privacy']['server_logs_en'])
 
-
-def login_required(f):
-    """Decorator für geschützte Routen"""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not session.get('logged_in'):
-            return jsonify({'error': 'Nicht angemeldet'}), 401
-        return f(*args, **kwargs)
-    return decorated_function
+    return content
 
 
 def validate_language(lang):
@@ -166,13 +198,16 @@ def index(lang):
     content = load_content()
     
     # Lese die HTML-Datei
-    with open('index.html', 'r', encoding='utf-8') as f:
-        html = f.read()
+    if os.path.exists('index.html'):
+        with open('index.html', 'r', encoding='utf-8') as f:
+            html = f.read()
+    else:
+        return "index.html not found", 404
     
-    # Füge Login-Status, Content und Sprache als JavaScript-Variable hinzu
+    # Füge Content und Sprache als JavaScript-Variable hinzu
     inject_script = f"""
     <script>
-        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
         window.currentLang = '{lang}';
         window.currentPage = 'overview';
@@ -196,7 +231,7 @@ def hub(lang):
     
     inject_script = f"""
     <script>
-        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
         window.currentLang = '{lang}';
         window.currentPage = 'hub';
@@ -218,7 +253,7 @@ def about(lang):
     
     inject_script = f"""
     <script>
-        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
         window.currentLang = '{lang}';
         window.currentPage = 'about';
@@ -241,7 +276,7 @@ def impressum(lang):
     # Füge spezielle Marker für Impressum-Content hinzu
     inject_script = f"""
     <script>
-        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
         window.currentLang = '{lang}';
         window.currentPage = 'impressum';
@@ -268,18 +303,18 @@ def impressum(lang):
             <div class="space-y-6 text-[var(--m3-on-surface)]">
                 <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
                     <p class="text-lg leading-relaxed">
-                        <strong class="block mb-2">L8teNever</strong>
-                        Musterstraße 123<br>
-                        12345 Berlin<br>
-                        Deutschland
+                        <strong class="block mb-2">{content['impressum']['company']}</strong>
+                        {content['impressum']['address_line1']}<br>
+                        {content['impressum']['address_line2']}<br>
+                        {content['impressum']['country']}
                     </p>
                 </div>
                 
                 <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
                     <p class="text-lg">
                         <strong class="block mb-2">E-Mail:</strong>
-                        <a href="mailto:hello@l8tenever.com" class="text-[var(--m3-primary)] hover:opacity-80 transition-opacity">
-                            hello@l8tenever.com
+                        <a href="mailto:{content['impressum']['email']}" class="text-[var(--m3-primary)] hover:opacity-80 transition-opacity">
+                            {content['impressum']['email']}
                         </a>
                     </p>
                 </div>
@@ -287,7 +322,7 @@ def impressum(lang):
                 <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
                     <p class="text-lg">
                         <strong class="block mb-2">{'Verantwortlich für den Inhalt' if lang == 'de' else 'Responsible for content'}:</strong>
-                        L8teNever
+                        {content['impressum']['responsible']}
                     </p>
                 </div>
             </div>
@@ -316,7 +351,7 @@ def datenschutz(lang):
     
     inject_script = f"""
     <script>
-        window.isLoggedIn = {'true' if session.get('logged_in') else 'false'};
+        window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
         window.currentLang = '{lang}';
         window.currentPage = 'datenschutz';
@@ -342,7 +377,7 @@ def datenschutz(lang):
             <div class="space-y-6 text-[var(--m3-on-surface)]">
                 <div class="android-card p-6 bg-[var(--m3-surface)] border border-transparent dark:border-[var(--m3-outline)]/20">
                     <p class="text-lg leading-relaxed">
-                        {'Diese Website verwendet keine Cookies und kein Tracking.' if lang == 'de' else 'This website does not use cookies or tracking.'}
+                        {content['privacy']['intro_de'] if lang == 'de' else content['privacy']['intro_en']}
                     </p>
                 </div>
                 
@@ -351,7 +386,7 @@ def datenschutz(lang):
                         {'Datenverarbeitung' if lang == 'de' else 'Data Processing'}
                     </h2>
                     <p class="text-lg leading-relaxed opacity-80">
-                        {'Wir verarbeiten keine personenbezogenen Daten. Die Website ist rein funktional und speichert keine Benutzerinformationen.' if lang == 'de' else 'We do not process any personal data. This website is purely functional and does not store any user information.'}
+                        {content['privacy']['data_processing_de'] if lang == 'de' else content['privacy']['data_processing_en']}
                     </p>
                 </div>
                 
@@ -360,7 +395,7 @@ def datenschutz(lang):
                         {'Server-Logs' if lang == 'de' else 'Server Logs'}
                     </h2>
                     <p class="text-lg leading-relaxed opacity-80">
-                        {'Technisch bedingt werden beim Zugriff auf die Website temporäre Verbindungsdaten (IP-Adresse, Zeitstempel) im Server-Log gespeichert. Diese Daten werden nicht ausgewertet und nach 24 Stunden automatisch gelöscht.' if lang == 'de' else 'For technical reasons, temporary connection data (IP address, timestamp) is stored in the server log when accessing the website. This data is not analyzed and is automatically deleted after 24 hours.'}
+                        {content['privacy']['server_logs_de'] if lang == 'de' else content['privacy']['server_logs_en']}
                     </p>
                 </div>
             </div>
@@ -374,110 +409,10 @@ def datenschutz(lang):
     return render_template_string(html)
 
 
-@app.route('/admin.js')
-def serve_admin_js():
-    """Serviert die admin.js Datei"""
-    with open('admin.js', 'r', encoding='utf-8') as f:
-        js_content = f.read()
-    return js_content, 200, {'Content-Type': 'application/javascript'}
-
-
-@app.route('/api/login', methods=['POST'])
-def login():
-    """Login-Endpunkt mit Rate Limiting"""
-    ip = request.remote_addr
-    
-    # Rate Limiting prüfen
-    if not check_rate_limit(ip):
-        return jsonify({
-            'success': False, 
-            'message': 'Zu viele Login-Versuche. Bitte warte 5 Minuten.'
-        }), 429
-    
-    data = request.get_json()
-    if not data:
-        return jsonify({'success': False, 'message': 'Ungültige Anfrage'}), 400
-    
-    username = data.get('username', '').strip()
-    password = data.get('password', '')
-    
-    # Input-Validierung
-    if not username or not password:
-        record_login_attempt(ip)
-        return jsonify({'success': False, 'message': 'Benutzername und Passwort erforderlich'}), 400
-    
-    if len(username) > 100 or len(password) > 100:
-        record_login_attempt(ip)
-        return jsonify({'success': False, 'message': 'Eingabe zu lang'}), 400
-    
-    password_hash = hashlib.sha256(password.encode()).hexdigest()
-    
-    if username == ADMIN_CREDENTIALS['username'] and password_hash == ADMIN_CREDENTIALS['password_hash']:
-        session['logged_in'] = True
-        session['username'] = username
-        session.permanent = True
-        # Login erfolgreich - Rate Limit zurücksetzen
-        if ip in login_attempts:
-            del login_attempts[ip]
-        return jsonify({'success': True, 'message': 'Erfolgreich angemeldet'})
-    
-    # Fehlgeschlagener Login
-    record_login_attempt(ip)
-    return jsonify({'success': False, 'message': 'Ungültige Zugangsdaten'}), 401
-
-
-@app.route('/api/logout', methods=['POST'])
-def logout():
-    """Logout-Endpunkt"""
-    session.clear()
-    return jsonify({'success': True, 'message': 'Erfolgreich abgemeldet'})
-
-
-@app.route('/api/check-auth', methods=['GET'])
-def check_auth():
-    """Prüft ob User eingeloggt ist"""
-    return jsonify({'logged_in': session.get('logged_in', False)})
-
-
 @app.route('/api/content', methods=['GET'])
 def get_content():
     """Gibt den aktuellen Content zurück"""
     return jsonify(load_content())
-
-
-@app.route('/api/content', methods=['POST'])
-@login_required
-def update_content():
-    """Aktualisiert den Content (nur für eingeloggte User)"""
-    data = request.get_json()
-    
-    if not data:
-        return jsonify({'error': 'Keine Daten erhalten'}), 400
-    
-    # Validierung
-    required_fields = ['name', 'subtitle_de', 'age', 'status_de', 'vibe', 'location']
-    for field in required_fields:
-        if field not in data:
-            return jsonify({'error': f'Feld {field} fehlt'}), 400
-    
-    # Sanitize und validiere Eingaben
-    sanitized_data = {}
-    for key, value in data.items():
-        if isinstance(value, str):
-            # Entferne gefährliche Zeichen (außer bei URLs und erlaubten HTML-Tags)
-            if key.endswith('_url'):
-                # URL-Validierung
-                if not value.startswith(('http://', 'https://')):
-                    return jsonify({'error': f'Ungültige URL: {key}'}), 400
-            # Längen-Validierung
-            if len(value) > 500:
-                return jsonify({'error': f'Wert für {key} ist zu lang'}), 400
-            sanitized_data[key] = value
-        else:
-            sanitized_data[key] = value
-    
-    save_content(sanitized_data)
-    return jsonify({'success': True, 'message': 'Content erfolgreich aktualisiert'})
 
 
 def run_server(port=8000, host='0.0.0.0'):
@@ -489,31 +424,35 @@ def run_server(port=8000, host='0.0.0.0'):
         host (str): Host-Adresse (Standard: 0.0.0.0 für alle Interfaces)
     """
     print(f"""
-╔════════════════════════════════════════════════════════════╗
-║           L8teNever Website Server gestartet              ║
-╠════════════════════════════════════════════════════════════╣
-║  Lokaler Zugriff:    http://localhost:{port}/de/           ║
-║  Netzwerk-Zugriff:   http://{host}:{port}/de/              ║
-╠════════════════════════════════════════════════════════════╣
-║  Sprachen:                                                ║
-║  - Deutsch:  /de/                                         ║
-║  - English:  /en/                                         ║
-╠════════════════════════════════════════════════════════════╣
-║  Admin Login:                                             ║
-║  Username: {ADMIN_CREDENTIALS['username']:<20}                           ║
-║  Password: (siehe docker-compose.yml)                     ║
-╠════════════════════════════════════════════════════════════╣
-║  Sicherheitsfeatures:                                     ║
-║  ✓ Rate Limiting (5 Versuche / 5 Min)                    ║
-║  ✓ CSRF Protection                                        ║
-║  ✓ Security Headers                                       ║
-║  ✓ Input Validation                                       ║
-╠════════════════════════════════════════════════════════════╣
-║  Drücke STRG+C zum Beenden                                ║
-╚════════════════════════════════════════════════════════════╝
+    ╔════════════════════════════════════════════════════════════╗
+    ║           L8teNever Website Server gestartet              ║
+    ╠════════════════════════════════════════════════════════════╣
+    ║  Lokaler Zugriff:    http://localhost:{port}/de/           ║
+    ║  Netzwerk-Zugriff:   http://{host}:{port}/de/              ║
+    ╠════════════════════════════════════════════════════════════╣
+    ║  Sprachen:                                                ║
+    ║  - Deutsch:  /de/                                         ║
+    ║  - English:  /en/                                         ║
+    ╠════════════════════════════════════════════════════════════╣
+    ║  Konfiguration:                                           ║
+    ║  Inhalte über Umgebungsvariablen in der docker-compose    ║
+    ╠════════════════════════════════════════════════════════════╣
+    ║  Sicherheitsfeatures:                                     ║
+    ║  ✓ Security Headers                                       ║
+    ╠════════════════════════════════════════════════════════════╣
+    ║  Drücke STRG+C zum Beenden                                ║
+    ╚════════════════════════════════════════════════════════════╝
     """)
     
     app.run(host=host, port=port, debug=False)
+
+
+if __name__ == "__main__":
+    # Port aus Umgebungsvariable oder Standard
+    PORT = int(os.environ.get('PORT', 8000))
+    HOST = os.environ.get('HOST', '0.0.0.0')
+    
+    run_server(port=PORT, host=HOST)
 
 
 if __name__ == "__main__":

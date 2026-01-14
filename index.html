@@ -235,7 +235,7 @@
         <header
             class="w-full lg:w-1/3 lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center p-8 lg:p-12 text-center">
             <div class="relative inline-block group">
-                <div
+                <div id="hub-logo"
                     class="w-24 h-24 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-[32px] lg:rounded-[48px] shadow-2xl flex items-center justify-center text-white text-3xl lg:text-5xl font-bold transform rotate-3 transition-transform group-hover:rotate-0">
                     LN
                 </div>
@@ -245,10 +245,11 @@
             </div>
 
             <div class="mt-6 lg:mt-10">
-                <h1 class="text-3xl lg:text-5xl font-bold tracking-tight mb-2 text-[var(--m3-on-surface)]">L8teNever
+                <h1 id="hub-name"
+                    class="text-3xl lg:text-5xl font-bold tracking-tight mb-2 text-[var(--m3-on-surface)]">L8teNever
                 </h1>
-                <p class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_overview">Digitaler Creator &
-                    Entwickler</p>
+                <p id="hub-subtitle" class="opacity-60 text-base lg:text-xl font-medium" data-i18n="subtitle_overview">
+                    Digitaler Creator & Entwickler</p>
             </div>
         </header>
 
@@ -271,7 +272,7 @@
                     </button>
 
                     <!-- GitHub -->
-                    <a href="https://github.com" target="_blank"
+                    <a id="link-github" href="https://github.com" target="_blank"
                         class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm">
                         <div class="p-3 bg-white/20 rounded-2xl shrink-0">
                             <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
@@ -286,7 +287,7 @@
                     </a>
 
                     <!-- Instagram -->
-                    <a href="https://instagram.com" target="_blank"
+                    <a id="link-instagram" href="https://instagram.com" target="_blank"
                         class="android-card p-6 lg:p-8 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] flex items-center space-x-6 shadow-sm sm:col-span-2">
                         <div class="p-3 bg-white/20 rounded-2xl shrink-0">
                             <svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
@@ -331,13 +332,13 @@
                     class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
                     <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
                         data-i18n="info_age_label">Alter</span>
-                    <span class="text-2xl font-bold">16</span>
+                    <span id="info-age" class="text-2xl font-bold">16</span>
                 </div>
                 <div
                     class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
                     <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
                         data-i18n="info_status_label">Status</span>
-                    <span class="text-xl font-bold" data-i18n="info_status_value">Schüler</span>
+                    <span id="info-status" class="text-xl font-bold" data-i18n="info_status_value">Schüler</span>
                 </div>
 
                 <!-- Reihe 2: Vibe & Standort -->
@@ -345,13 +346,13 @@
                     class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
                     <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
                         data-i18n="info_vibe_label">Vibe</span>
-                    <span class="text-lg font-bold">Vibecoding</span>
+                    <span id="info-vibe" class="text-lg font-bold">Vibecoding</span>
                 </div>
                 <div
                     class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
                     <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1"
                         data-i18n="info_loc_label">Standort</span>
-                    <span class="text-lg font-bold">Deutschland</span>
+                    <span id="info-location" class="text-lg font-bold">Deutschland</span>
                 </div>
 
                 <!-- Reihe 3: Interessen (Volle Breite) -->
@@ -424,33 +425,6 @@
                     data-i18n="nav_impressum">Impressum</button>
                 <button onclick="navigateToDatenschutz()" class="hover:text-[var(--m3-primary)]"
                     data-i18n="nav_privacy">Datenschutz</button>
-                <!-- Admin Login/Edit Button -->
-                <button onclick="toggleLogin()" id="btn-login" class="hover:text-[var(--m3-primary)] transition-colors">
-                    <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                        </path>
-                    </svg>
-                    Login
-                </button>
-                <button onclick="toggleEdit()" id="btn-edit"
-                    class="hidden hover:text-[var(--m3-primary)] transition-colors text-green-500">
-                    <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                        </path>
-                    </svg>
-                    Edit
-                </button>
-                <button onclick="handleLogout()" id="btn-logout"
-                    class="hidden hover:text-[var(--m3-primary)] transition-colors text-red-500">
-                    <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                        </path>
-                    </svg>
-                    Logout
-                </button>
             </div>
 
             <!-- Theme & Language -->
@@ -477,213 +451,7 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="legal-overlay" onclick="closeOverlayOnClick(event, 'login-modal')">
-        <div class="legal-content text-[var(--m3-on-surface)]">
-            <span class="close-handle"></span>
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-2xl lg:text-4xl font-bold">Admin Login</h2>
-                <button onclick="toggleLogin()"
-                    class="p-3 bg-[var(--m3-surface-variant)] rounded-full hover:scale-110 transition-transform"><svg
-                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg></button>
-            </div>
-            <form onsubmit="handleLogin(event)" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Username</label>
-                    <input type="text" id="login-username"
-                        class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold mb-2 opacity-70">Password</label>
-                    <input type="password" id="login-password"
-                        class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-2 border-transparent focus:border-[var(--m3-primary)] outline-none transition-colors"
-                        required>
-                </div>
-                <div id="login-error"
-                    class="hidden p-4 bg-red-500/20 text-red-600 dark:text-red-400 rounded-2xl text-sm font-bold"></div>
-                <button type="submit"
-                    class="w-full p-4 bg-[var(--m3-primary)] text-white rounded-2xl font-bold hover:opacity-90 transition-opacity">
-                    Anmelden
-                </button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Edit Modal -->
-    <div id="edit-modal" class="legal-overlay" onclick="closeOverlayOnClick(event, 'edit-modal')">
-        <div class="legal-content text-[var(--m3-on-surface)] !max-w-4xl">
-            <span class="close-handle"></span>
-
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Inhalte verwalten</h2>
-                <button onclick="toggleEdit()" class="p-2 hover:bg-black/10 rounded-full transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Tabs Navigation -->
-            <div
-                class="flex space-x-2 mb-8 bg-[var(--m3-surface-variant)] p-1 rounded-2xl overflow-x-auto no-scrollbar">
-                <button onclick="switchAdminTab('profile')" id="tab-btn-profile"
-                    class="admin-tab-btn active px-6 py-2 rounded-xl font-bold transition-all">Profil</button>
-                <button onclick="switchAdminTab('hub')" id="tab-btn-hub"
-                    class="admin-tab-btn px-6 py-2 rounded-xl font-bold transition-all">Hub-Buttons</button>
-                <button onclick="switchAdminTab('legal')" id="tab-btn-legal"
-                    class="admin-tab-btn px-6 py-2 rounded-xl font-bold transition-all">Rechtliches</button>
-            </div>
-
-            <form onsubmit="handleSaveContent(event)">
-                <!-- Tab: Profil -->
-                <div id="admin-tab-profile" class="admin-tab-content space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Name</label>
-                            <input type="text" id="edit-name"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">E-Mail</label>
-                            <input type="email" id="edit-email"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Adresse (HTML erlaubt)</label>
-                            <input type="text" id="edit-address"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Untertitel (DE)</label>
-                            <input type="text" id="edit-subtitle-de"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Untertitel (EN)</label>
-                            <input type="text" id="edit-subtitle-en"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Status (DE)</label>
-                            <input type="text" id="edit-status-de"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Status (EN)</label>
-                            <input type="text" id="edit-status-en"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Alter</label>
-                            <input type="text" id="edit-age"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Vibe</label>
-                            <input type="text" id="edit-vibe"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Standort</label>
-                            <input type="text" id="edit-location"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">GitHub URL</label>
-                            <input type="url" id="edit-github"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold mb-1 opacity-60 ml-2">Instagram URL</label>
-                            <input type="url" id="edit-instagram"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab: Hub-Buttons -->
-                <div id="admin-tab-hub" class="admin-tab-content hidden space-y-4">
-                    <div id="hub-buttons-editor" class="max-h-[50vh] overflow-y-auto pr-2 no-scrollbar">
-                        <!-- Wird via admin.js befüllt -->
-                    </div>
-                </div>
-
-                <!-- Tab: Rechtliches -->
-                <div id="admin-tab-legal" class="admin-tab-content hidden space-y-6">
-                    <div class="space-y-4">
-                        <h3 class="font-bold opacity-60 ml-2">Impressum</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" id="edit-impressum-company" placeholder="Firma / Name"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                            <input type="text" id="edit-impressum-email" placeholder="E-Mail"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                            <input type="text" id="edit-impressum-address1" placeholder="Straße"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                            <input type="text" id="edit-impressum-address2" placeholder="PLZ Ort"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                            <input type="text" id="edit-impressum-country" placeholder="Land"
-                                class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <h3 class="font-bold opacity-60 ml-2">Datenschutz (Deutsch)</h3>
-                        <textarea id="edit-privacy-intro-de" placeholder="Einleitung"
-                            class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none h-24 mb-2"></textarea>
-                        <textarea id="edit-privacy-processing-de" placeholder="Datenverarbeitung"
-                            class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none h-24 mb-2"></textarea>
-                        <textarea id="edit-privacy-logs-de" placeholder="Server Logs"
-                            class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none h-24"></textarea>
-                    </div>
-                </div>
-
-                <div class="mt-8 flex flex-col gap-3">
-                    <div id="edit-success"
-                        class="hidden p-4 bg-green-500/20 text-green-600 rounded-2xl text-center font-bold"></div>
-                    <div id="edit-error"
-                        class="hidden p-4 bg-red-500/20 text-red-600 rounded-2xl text-center font-bold"></div>
-                    <button type="submit"
-                        class="w-full p-4 bg-[var(--m3-primary)] text-white rounded-3xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all">
-                        Alle Änderungen speichern
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Hub Button Editor Sub-Modal -->
-    <div id="hub-button-modal" class="legal-overlay !z-[150]" onclick="closeOverlayOnClick(event, 'hub-button-modal')">
-        <div class="legal-content text-[var(--m3-on-surface)] !max-w-md">
-            <h3 class="text-xl font-bold mb-6">Hub-Button bearbeiten</h3>
-            <div class="space-y-4">
-                <input type="text" id="hub-btn-name-de" placeholder="Button Name"
-                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                <input type="text" id="hub-btn-desc-de" placeholder="Beschreibung"
-                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                <input type="text" id="hub-btn-url" placeholder="URL (https://...)"
-                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                <select id="hub-btn-icon"
-                    class="w-full p-4 rounded-2xl bg-[var(--m3-surface-variant)] border-none outline-none">
-                    <option value="study">Study Icon</option>
-                    <option value="fuel">Fuel Icon</option>
-                    <option value="habbit">Habits Icon</option>
-                    <option value="id">Identity Icon</option>
-                    <option value="flow">Flow Icon</option>
-                    <option value="bot">Bot Icon</option>
-                </select>
-                <div class="flex gap-2">
-                    <button onclick="saveHubButton()"
-                        class="flex-1 p-4 bg-[var(--m3-primary)] text-white rounded-2xl font-bold">Übernehmen</button>
-                    <button onclick="cancelHubButtonEdit()"
-                        class="flex-1 p-4 bg-[var(--m3-surface-variant)] rounded-2xl font-bold">Abbrechen</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Overlays -->
     <div id="impressum" class="legal-overlay" onclick="closeOverlayOnClick(event, 'impressum')">
@@ -777,6 +545,52 @@
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         setTheme(systemPrefersDark.matches);
 
+        function updateDynamicContent() {
+            const content = window.siteContent;
+            if (!content) return;
+
+            // Name & Subtitle
+            if (content.name) {
+                document.getElementById('hub-name').innerText = content.name;
+                document.getElementById('hub-logo').innerText = content.name.substring(0, 2).toUpperCase();
+            }
+
+            // Social Links
+            if (content.github_url) document.getElementById('link-github').href = content.github_url;
+            if (content.instagram_url) document.getElementById('link-instagram').href = content.instagram_url;
+
+            // Bio Info
+            if (content.age) document.getElementById('info-age').innerText = content.age;
+            if (content.vibe) document.getElementById('info-vibe').innerText = content.vibe;
+            if (content.location) document.getElementById('info-location').innerText = content.location;
+
+            // Subtitle & Status are language dependent and handled by translations
+        }
+
+        function updateTranslations() {
+            const lang = currentLang;
+            const content = window.siteContent;
+
+            if (translations[lang]) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+
+                    // Priority: Environment Config -> Translation File
+                    let text = translations[lang][key];
+
+                    if (content) {
+                        if (key === 'subtitle_overview' || key === 'subtitle_about') {
+                            text = lang === 'de' ? content.subtitle_de : content.subtitle_en;
+                        } else if (key === 'info_status_value') {
+                            text = lang === 'de' ? content.status_de : content.status_en;
+                        }
+                    }
+
+                    if (text) el.innerText = text;
+                });
+            }
+        }
+
         function changeLang(lang) {
             // Smooth Sprach-Wechsel mit Fade-Out/In
             document.body.style.opacity = '0';
@@ -820,10 +634,7 @@
             }
         });
 
-        // Login/Logout UI Handlers (delegated to admin.js)
-        window.toggleLogin = window.toggleLogin || function () { console.error('admin.js not loaded'); };
-        window.toggleEdit = window.toggleEdit || function () { console.error('admin.js not loaded'); };
-        window.handleLogout = window.handleLogout || function () { console.error('admin.js not loaded'); };
+
 
         function toggleOverlay(id) {
             const overlay = document.getElementById(id);
@@ -849,8 +660,8 @@
                         ${projectIcons[c.icon] || projectIcons.study}
                     </div>
                     <div>
-                        <span class="block font-bold text-lg lg:text-xl leading-tight">${c.name_de}</span>
-                        <span class="text-xs opacity-60">${c.desc_de}</span>
+                        <span class="block font-bold text-lg lg:text-xl leading-tight">${currentLang === 'de' ? c.name_de : c.name_en}</span>
+                        <span class="text-xs opacity-60">${currentLang === 'de' ? c.desc_de : c.desc_en}</span>
                     </div>
                 </a>
             `).join('');
@@ -900,6 +711,7 @@
         }
 
         window.onload = () => {
+            updateDynamicContent();
             renderHub();
             const footer = document.getElementById('shared-footer');
             const targetPage = window.currentPage || 'overview';
@@ -929,14 +741,7 @@
             if (langBtn) langBtn.classList.add('active');
 
             // Übersetze die Seite
-            if (translations[lang]) {
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (translations[lang][key]) {
-                        el.innerText = translations[lang][key];
-                    }
-                });
-            }
+            updateTranslations();
 
             // Zeige die richtige Seite basierend auf window.currentPage
             const availablePages = ['overview', 'hub', 'about'];
@@ -944,17 +749,7 @@
                 switchPage(targetPage);
             }
 
-            // Login-Status prüfen und UI anpassen
-            if (window.isLoggedIn) {
-                // Wir verwenden ein kurzes Intervall, falls admin.js noch nicht geladen ist
-                const checkAdmin = setInterval(() => {
-                    if (typeof updateUIForLogin === 'function') {
-                        updateUIForLogin();
-                        clearInterval(checkAdmin);
-                    }
-                }, 50);
-                setTimeout(() => clearInterval(checkAdmin), 2000);
-            }
+
 
             // Schnelles Fade-In beim Laden
             setTimeout(() => {
@@ -962,7 +757,7 @@
             }, 20);
         };
     </script>
-    <script src="/admin.js"></script>
+
 </body>
 
 </html>

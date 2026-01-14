@@ -16,18 +16,35 @@ services:
       - PORT=8000
       - HOST=0.0.0.0
       
-      # Admin-Zugangsdaten (WICHTIG: Ändere diese Werte für Produktion!)
-      - ADMIN_USER=admin
-      - ADMIN_PASS=L8teNever2026!
-      
-      # Secret Key für Sessions (WICHTIG: Ändere diesen Wert für Produktion!)
-      - SECRET_KEY=l8tenever-secret-key-change-in-production-2026
+      # Website-Inhalte (Diese Werte können hier angepasst werden)
+      - HUB_NAME=L8teNever
+      - HUB_SUBTITLE_DE=Digitaler Creator & Entwickler
+      - HUB_SUBTITLE_EN=Digital Creator & Developer
+      - HUB_AGE=16
+      - HUB_STATUS_DE=Schüler
+      - HUB_STATUS_EN=Student
+      - HUB_VIBE=Vibecoding
+      - HUB_LOCATION=Deutschland
+      - HUB_GITHUB_URL=https://github.com
+      - HUB_INSTAGRAM_URL=https://instagram.com
+      - HUB_EMAIL=hello@l8tenever.com
+      - HUB_ADDRESS=Musterstraße 123<br>12345 Berlin
+
+      # Hub Buttons - Viel einfacher: Name DE | Name EN | Desc DE | Desc EN | URL | Icon
+      # Verfügbare Icons: study, fuel, habbit, id, flow, bot
+      - HUB_BUTTON_1=L8teStudy | L8teStudy | Lernhilfe & Tools | Study tools | # | study
+      - HUB_BUTTON_2=L8teFuel  | L8teFuel  | Energie & Fokus | Energy & Focus | # | fuel
+      - HUB_BUTTON_3=L8teFlow  | L8teFlow  | Automatisierung | Automation   | # | flow
+
+      # Rechtliches
+      - HUB_IMPRESSUM_COMPANY=L8teNever
+      - HUB_IMPRESSUM_ADDR1=Musterstraße 123
+      - HUB_IMPRESSUM_ADDR2=12345 Berlin
+      - HUB_IMPRESSUM_COUNTRY=Deutschland
+      - HUB_IMPRESSUM_EMAIL=hello@l8tenever.com
+      - HUB_IMPRESSUM_RESPONSIBLE=L8teNever
     
     restart: unless-stopped
-    
-    # Persistenz für Content-Datei
-    volumes:
-      - ./content.json:/app/content.json
     
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000')"]
