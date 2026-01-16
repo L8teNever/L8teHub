@@ -12,7 +12,6 @@ Eine moderne, hochgradig anpassbare Hub-Website mit **Material You Design** (And
 
 - **🎨 Android 16 Visuals**: Modernstes UI-Design mit dynamischen Farbschemata (Material Design 3).
 - **🌓 Adaptive Themes**: Automatischer Dark Mode mit manuellem Toggle für erstklassige Ästhetik.
-- **🌍 Mehrsprachigkeit**: Vollständige Unterstützung für Deutsch und Englisch (URL-gesteuert).
 - **📱 Responsive by Design**: Nahtlose Erfahrung auf Desktop, Tablet und Smartphone.
 - **⚙️ Dynamic Content**: Zentrale Steuerung aller Inhalte über Umgebungsvariablen oder JSON.
 - **🛡️ Secure & Lightweight**: Flask-Backend mit eingebauten Security Headers (CSP, HSTS, etc.) und Rate Limiting.
@@ -41,7 +40,7 @@ pip install -r requirements.txt
 # Server starten
 python server.py
 ```
-*Besuche anschließend `http://localhost:8000/de/` in deinem Browser.*
+*Besuche anschließend `http://localhost:8000/` in deinem Browser.*
 
 ---
 

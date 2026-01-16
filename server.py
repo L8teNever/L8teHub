@@ -30,8 +30,7 @@ ADMIN_CREDENTIALS = {
 # Content-Datei (optional, falls jemand doch eine Datei nutzen will, aber Env-Vars haben Vorrang)
 CONTENT_FILE = 'content.json'
 
-# Unterstützte Sprachen
-SUPPORTED_LANGUAGES = ['de', 'en']
+# Nur Deutsch
 DEFAULT_LANGUAGE = 'de'
 
 # Standard-Content
@@ -221,11 +220,6 @@ def load_content():
     return content
 
 
-def validate_language(lang):
-    """Validiert die Sprache"""
-    return lang if lang in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE
-
-
 @app.after_request
 def set_security_headers(response):
     """Setzt Sicherheits-Header"""
@@ -246,15 +240,8 @@ def set_security_headers(response):
 
 
 @app.route('/')
-def index_redirect():
-    """Redirect zur deutschen Startseite"""
-    return redirect(url_for('index', lang='de'))
-
-
-@app.route('/<lang>/')
-def index(lang):
-    """Hauptseite mit Sprachunterstützung"""
-    lang = validate_language(lang)
+def index():
+    """Hauptseite (nur Deutsch)"""
     content = load_content()
     
     # Lese die HTML-Datei
@@ -264,12 +251,11 @@ def index(lang):
     else:
         return "index.html not found", 404
     
-    # Füge Content und Sprache als JavaScript-Variable hinzu
+    # Füge Content als JavaScript-Variable hinzu
     inject_script = f"""
     <script>
         window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
-        window.currentLang = '{lang}';
         window.currentPage = 'overview';
     </script>
     """
@@ -280,10 +266,11 @@ def index(lang):
     return render_template_string(html)
 
 
-@app.route('/<lang>/hub/')
-def hub(lang):
-    """Hub-Seite mit Sprachunterstützung"""
-    lang = validate_language(lang)
+@app.route('/hub/')
+@app.route('/h/')
+@app.route('/L8teHub/')
+def hub():
+    """Hub-Seite (nur Deutsch) - erreichbar unter /hub/, /h/ oder /L8teHub/"""
     content = load_content()
     
     with open('index.html', 'r', encoding='utf-8') as f:
@@ -293,7 +280,6 @@ def hub(lang):
     <script>
         window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
-        window.currentLang = '{lang}';
         window.currentPage = 'hub';
     </script>
     """
@@ -302,10 +288,9 @@ def hub(lang):
     return render_template_string(html)
 
 
-@app.route('/<lang>/about/')
-def about(lang):
-    """About-Seite mit Sprachunterstützung"""
-    lang = validate_language(lang)
+@app.route('/about/')
+def about():
+    """About-Seite (nur Deutsch)"""
     content = load_content()
     
     with open('index.html', 'r', encoding='utf-8') as f:
@@ -315,7 +300,6 @@ def about(lang):
     <script>
         window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
-        window.currentLang = '{lang}';
         window.currentPage = 'about';
     </script>
     """
@@ -324,10 +308,9 @@ def about(lang):
     return render_template_string(html)
 
 
-@app.route('/<lang>/impressum/')
-def impressum(lang):
+@app.route('/impressum/')
+def impressum():
     """Impressum-Seite (Client-side rendering)"""
-    lang = validate_language(lang)
     content = load_content()
     
     with open('index.html', 'r', encoding='utf-8') as f:
@@ -337,7 +320,6 @@ def impressum(lang):
     <script>
         window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
-        window.currentLang = '{lang}';
         window.currentPage = 'impressum';
     </script>
     """
@@ -345,10 +327,9 @@ def impressum(lang):
     return render_template_string(html)
 
 
-@app.route('/<lang>/datenschutz/')
-def datenschutz(lang):
+@app.route('/datenschutz/')
+def datenschutz():
     """Datenschutz-Seite (Client-side rendering)"""
-    lang = validate_language(lang)
     content = load_content()
     
     with open('index.html', 'r', encoding='utf-8') as f:
@@ -358,7 +339,6 @@ def datenschutz(lang):
     <script>
         window.isLoggedIn = false;
         window.siteContent = {json.dumps(content)};
-        window.currentLang = '{lang}';
         window.currentPage = 'datenschutz';
     </script>
     """
@@ -384,12 +364,8 @@ def run_server(port=8000, host='0.0.0.0'):
     ╔════════════════════════════════════════════════════════════╗
     ║           L8teNever Website Server gestartet              ║
     ╠════════════════════════════════════════════════════════════╣
-    ║  Lokaler Zugriff:    http://localhost:{port}/de/           ║
-    ║  Netzwerk-Zugriff:   http://{host}:{port}/de/              ║
-    ╠════════════════════════════════════════════════════════════╣
-    ║  Sprachen:                                                ║
-    ║  - Deutsch:  /de/                                         ║
-    ║  - English:  /en/                                         ║
+    ║  Lokaler Zugriff:    http://localhost:{port}/              ║
+    ║  Netzwerk-Zugriff:   http://{host}:{port}/                 ║
     ╠════════════════════════════════════════════════════════════╣
     ║  Konfiguration:                                           ║
     ║  Inhalte über Umgebungsvariablen in der docker-compose    ║

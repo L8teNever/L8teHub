@@ -161,68 +161,36 @@
             }
         }
 
-        /* Language Controls */
-        .lang-container {
-            background-color: var(--m3-surface-variant);
-            display: flex;
-            padding: 4px;
-            border-radius: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .footer-chip {
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--m3-on-surface);
-            opacity: 0.5;
-            background: transparent;
-        }
-
-        .footer-chip.active {
+        /* Theme Toggle Button */
+        .theme-toggle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             background-color: var(--m3-secondary-container);
             color: var(--m3-on-secondary-container);
-            opacity: 1;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-toggle-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 14px;
-            background-color: var(--m3-surface-variant);
-            color: var(--m3-on-surface);
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            z-index: 50;
         }
 
-        .admin-tab-btn.active {
-            background-color: var(--m3-primary);
-            color: white !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .theme-toggle-button:hover {
+            transform: scale(1.05);
         }
 
-        .admin-tab-btn:not(.active) {
-            opacity: 0.6;
-            color: var(--m3-on-surface);
+        .theme-toggle-button:active {
+            transform: scale(0.95);
         }
 
-        .admin-tab-btn:not(.active):hover {
-            opacity: 1;
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .theme-toggle-button svg {
+            width: 24px;
+            height: 24px;
         }
     </style>
 </head>
@@ -248,7 +216,7 @@
                 <h1 id="hub-name"
                     class="text-4xl lg:text-6xl font-bold tracking-tight mb-3 text-[var(--m3-on-surface)]">L8teNever
                 </h1>
-                <p id="hub-subtitle" class="opacity-60 text-lg lg:text-2xl font-medium" data-i18n="subtitle_overview">
+                <p id="hub-subtitle" class="opacity-60 text-lg lg:text-2xl font-medium">
                     Digitaler Creator & Entwickler</p>
             </div>
         </header>
@@ -266,8 +234,8 @@
                             </svg>
                         </div>
                         <div>
-                            <span class="block font-bold text-lg lg:text-2xl" data-i18n="nav_info">Info</span>
-                            <span class="text-sm opacity-70" data-i18n="info_desc">Profil-Info</span>
+                            <span class="block font-bold text-lg lg:text-2xl">Info</span>
+                            <span class="text-sm opacity-70">Profil-Info</span>
                         </div>
                     </button>
                     <!-- Weitere Links via JS -->
@@ -292,7 +260,7 @@
             <div class="mt-0">
                 <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3">
                     L8teHub</h1>
-                <p class="opacity-60 text-lg lg:text-2xl font-medium" data-i18n="subtitle_hub">Launcher</p>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium">Launcher</p>
             </div>
         </header>
 
@@ -301,17 +269,6 @@
                 <!-- Wird via JS befüllt -->
             </div>
 
-            <div class="grid grid-cols-1 gap-5 w-full max-w-3xl mx-auto md:mx-0 mt-8">
-                <!-- Zurück Button -->
-                <button onclick="switchPage('overview')"
-                    class="android-card p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] font-bold flex items-center justify-center space-x-3 hover:brightness-95">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    <span class="text-lg" data-i18n="back_btn">Zurück</span>
-                </button>
-            </div>
             <div id="footer-placeholder-hub" class="mt-16 lg:mt-32"></div>
         </main>
     </section>
@@ -331,9 +288,9 @@
                 </div>
             </div>
             <div class="mt-0">
-                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3"
-                    data-i18n="about_title">Über mich</h1>
-                <p class="opacity-60 text-lg lg:text-2xl font-medium" data-i18n="subtitle_about">Mein Profil</p>
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3">Über mich
+                </h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium">Mein Profil</p>
             </div>
         </header>
 
@@ -346,8 +303,8 @@
                 <!-- Interessen (Volle Breite) -->
                 <div
                     class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-2"
-                        data-i18n="info_interests_label">Interessen</span>
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-2">Interessen</span>
                     <div id="info-interests" class="flex flex-wrap gap-2">
                         <!-- Wird via JS befüllt -->
                     </div>
@@ -382,10 +339,9 @@
                 </div>
             </div>
             <div class="mt-0">
-                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3"
-                    data-i18n="nav_impressum">Impressum</h1>
-                <p class="opacity-60 text-lg lg:text-2xl font-medium text-[var(--m3-on-surface)]"
-                    data-i18n="nav_back_info">Details</p>
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3">Impressum
+                </h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium text-[var(--m3-on-surface)]">Details</p>
             </div>
         </header>
         <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col justify-center">
@@ -412,10 +368,10 @@
                 </div>
             </div>
             <div class="mt-0">
-                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3"
-                    data-i18n="nav_privacy">Datenschutz</h1>
-                <p class="opacity-60 text-lg lg:text-2xl font-medium text-[var(--m3-on-surface)]"
-                    data-i18n="nav_privacy_subtitle">Privacy</p>
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3">Datenschutz
+                </h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium text-[var(--m3-on-surface)]">Datenschutz-Hinweise
+                </p>
             </div>
         </header>
         <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col justify-center">
@@ -432,20 +388,13 @@
 
             <!-- Navigation -->
             <div class="flex space-x-6 text-sm font-semibold opacity-50 text-[var(--m3-on-surface)]">
-                <button onclick="navigateToPage('hub')" id="btn-to-hub"
-                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all">L8teHub</button>
-                <button onclick="navigateToPage('overview')" id="btn-to-overview"
-                    class="hidden hover:text-[var(--m3-primary)] hover:opacity-100 transition-all font-bold"
-                    data-i18n="nav_socials">Socials</button>
                 <button onclick="navigateToImpressum()"
-                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all"
-                    data-i18n="nav_impressum">Impressum</button>
+                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all">Impressum</button>
                 <button onclick="navigateToDatenschutz()"
-                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all"
-                    data-i18n="nav_privacy">Datenschutz</button>
+                    class="hover:text-[var(--m3-primary)] hover:opacity-100 transition-all">Datenschutz</button>
             </div>
 
-            <!-- Theme & Language -->
+            <!-- Theme Toggle -->
             <div class="flex items-center space-x-6">
                 <button onclick="toggleTheme()"
                     class="theme-toggle-btn shadow-md hover:scale-110 active:scale-95 transition-all" id="theme-icon">
@@ -460,11 +409,6 @@
                         </path>
                     </svg>
                 </button>
-
-                <div class="lang-container">
-                    <button onclick="changeLang('de')" class="footer-chip active" id="lang-de">DE</button>
-                    <button onclick="changeLang('en')" class="footer-chip" id="lang-en">EN</button>
-                </div>
             </div>
             <p class="text-[10px] sm:text-xs opacity-30 text-[var(--m3-on-surface)]">© 2026 L8teNever</p>
         </div>
@@ -475,32 +419,7 @@
     <!-- Overlays gelöscht, da als eigene Sektionen implementiert -->
 
     <script>
-        const translations = {
-            de: {
-                subtitle_overview: "Digitaler Creator & Entwickler", subtitle_hub: "Launcher",
-                github_desc: "Meine Projekte", insta_desc: "Folge mir", study_desc: "Lernen",
-                fuel_desc: "Energie", habbit_desc: "Routinen", id_desc: "Identität",
-                flow_desc: "Automatisierung", bot_desc: "Assistent", nav_socials: "Socials",
-                nav_impressum: "Impressum", nav_privacy: "Datenschutz",
-                nav_info: "Info", info_desc: "Profil-Info", back_btn: "Zurück",
-                about_title: "Über mich", subtitle_about: "Mein Profil",
-                privacy_text: "Datenschutz ist mir wichtig. Keine Cookies, kein Tracking.",
-                info_age_label: "Alter", info_status_label: "Status", info_status_value: "Schüler",
-                info_vibe_label: "Vibe", info_loc_label: "Standort", info_interests_label: "Interessen"
-            },
-            en: {
-                subtitle_overview: "Digital Creator & Developer", subtitle_hub: "Quick Access",
-                github_desc: "My Projects", insta_desc: "Follow me", study_desc: "Study",
-                fuel_desc: "Energy", habbit_desc: "Habits", id_desc: "Identity",
-                flow_desc: "Flows", bot_desc: "Bot", nav_socials: "Socials",
-                nav_impressum: "Legal Notice", nav_privacy: "Privacy",
-                nav_info: "Info", info_desc: "About me", back_btn: "Back",
-                about_title: "About me", subtitle_about: "My Profile",
-                privacy_text: "Privacy is important to me. No cookies, no tracking.",
-                info_age_label: "Age", info_status_label: "Status", info_status_value: "Student",
-                info_vibe_label: "Vibe", info_loc_label: "Location", info_interests_label: "Interests"
-            }
-        };
+        // Nur Deutsch - keine Übersetzungen mehr nötig
 
         const projectIcons = {
             study: '<svg class="w-6 h-6 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>',
@@ -560,18 +479,12 @@
             };
         }
 
-        // Fallback für Sprache
-        if (!window.currentLang) {
-            window.currentLang = 'de';
-        }
-
         // Fallback für aktuelle Seite
         if (!window.currentPage) {
             window.currentPage = 'overview';
         }
 
         let currentActivePage = 'overview';
-        let currentLang = window.currentLang || 'de';
 
         function setTheme(isDark) {
             if (isDark) {
@@ -613,7 +526,7 @@
                         </div>
                         <div>
                             <span class="block font-bold text-lg lg:text-2xl">${link.name}</span>
-                            <span class="text-sm opacity-70">${currentLang === 'de' ? link.desc_de : link.desc_en}</span>
+                            <span class="text-sm opacity-70">${link.desc_de}</span>
                         </div>
                     </a>
                 `).join('');
@@ -624,8 +537,8 @@
                 const grid = document.getElementById('about-info-grid');
                 grid.innerHTML = content.about_info.map(info => `
                     <div class="android-card p-6 bg-[var(--m3-surface-variant)] shadow-sm flex flex-col justify-center border border-transparent dark:border-[var(--m3-outline)]/20">
-                        <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1">${currentLang === 'de' ? info.label_de : info.label_en}</span>
-                        <span class="text-xl lg:text-2xl font-bold">${currentLang === 'de' ? info.value_de : info.value_en}</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest opacity-50 block mb-1">${info.label_de}</span>
+                        <span class="text-xl lg:text-2xl font-bold">${info.value_de}</span>
                     </div>
                 `).join('');
             }
@@ -641,51 +554,13 @@
                 document.getElementById('info-interests').parentElement.classList.add('hidden');
             }
 
-            // Subtitle & Status are language dependent and handled by translations
+            // Subtitle & Status sind jetzt fest auf Deutsch
         }
 
-        function updateTranslations() {
-            const lang = currentLang;
-            const content = window.siteContent;
 
-            if (translations[lang]) {
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-
-                    // Priority: Environment Config -> Translation File
-                    let text = translations[lang][key];
-
-                    if (content) {
-                        if (key === 'subtitle_overview' || key === 'subtitle_about') {
-                            text = lang === 'de' ? content.subtitle_de : content.subtitle_en;
-                        } else if (key === 'info_status_value') {
-                            text = lang === 'de' ? content.status_de : content.status_en;
-                        }
-                    }
-
-                    if (text) el.innerText = text;
-                });
-            }
-        }
-
-        function changeLang(lang) {
-            // Smooth Sprach-Wechsel mit Fade-Out/In
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                window.location.href = `/${lang}/`;
-            }, 200);
-        }
 
         function navigateToPage(page) {
-            // Navigiere zur entsprechenden Seite ohne Reload
-            const targetPage = page === 'overview' ? 'overview' : page;
-
-            // Update URL ohne Reload
-            const newUrl = `/${currentLang}/${page === 'overview' ? '' : page + '/'}`;
-            window.history.pushState({ page: targetPage }, '', newUrl);
-
-            // Wechsle zur Seite
-            switchPage(targetPage);
+            switchPage(page);
         }
 
         function navigateToImpressum() { navigateToPage('impressum'); }
@@ -726,8 +601,8 @@
                         </div>
                     </div>
                     <div>
-                        <span class="block font-bold text-xl lg:text-2xl leading-tight mb-1">${currentLang === 'de' ? c.name_de : c.name_en}</span>
-                        <span class="text-sm opacity-60 font-medium">${currentLang === 'de' ? c.desc_de : c.desc_en}</span>
+                        <span class="block font-bold text-xl lg:text-2xl leading-tight mb-1">${c.name_de}</span>
+                        <span class="text-sm opacity-60 font-medium">${c.desc_de}</span>
                     </div>
                 </a>
             `).join('');
@@ -750,9 +625,6 @@
                 datenschutz: document.getElementById('footer-placeholder-datenschutz')
             };
 
-            const btnHub = document.getElementById('btn-to-hub');
-            const btnOverview = document.getElementById('btn-to-overview');
-
             const currentPage = pages[currentActivePage] || overview;
             const targetPage = pages[page] || overview;
 
@@ -771,13 +643,6 @@
 
                 if (placeholders[page]) placeholders[page].appendChild(footer);
 
-                if (page === 'overview') {
-                    btnHub.classList.remove('hidden');
-                    btnOverview.classList.add('hidden');
-                } else {
-                    btnHub.classList.add('hidden');
-                    btnOverview.classList.remove('hidden');
-                }
                 setTimeout(() => targetPage.classList.remove('page-enter'), 10);
                 currentActivePage = page;
             }, 100);
@@ -805,7 +670,7 @@
                 </div>
                 <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
                     <p class="text-lg">
-                        <strong class="block mb-2">${currentLang === 'de' ? 'Verantwortlich' : 'Responsible'}:</strong>
+                        <strong class="block mb-2">Verantwortlich:</strong>
                         ${content.responsible}
                     </p>
                 </div>
@@ -817,15 +682,15 @@
             const container = document.getElementById('privacy-content');
             container.innerHTML = `
                 <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <p class="text-lg leading-relaxed">${currentLang === 'de' ? content.intro_de : content.intro_en}</p>
+                    <p class="text-lg leading-relaxed">${content.intro_de}</p>
                 </div>
                 <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <h3 class="text-xl font-bold mb-4">${currentLang === 'de' ? 'Datenverarbeitung' : 'Data Processing'}</h3>
-                    <p class="text-lg leading-relaxed opacity-80">${currentLang === 'de' ? content.data_processing_de : content.data_processing_en}</p>
+                    <h3 class="text-xl font-bold mb-4">Datenverarbeitung</h3>
+                    <p class="text-lg leading-relaxed opacity-80">${content.data_processing_de}</p>
                 </div>
                 <div class="android-card p-8 bg-[var(--m3-surface-variant)] border border-transparent dark:border-[var(--m3-outline)]/20">
-                    <h3 class="text-xl font-bold mb-4">${currentLang === 'de' ? 'Server-Logs' : 'Server Logs'}</h3>
-                    <p class="text-lg leading-relaxed opacity-80">${currentLang === 'de' ? content.server_logs_de : content.server_logs_en}</p>
+                    <h3 class="text-xl font-bold mb-4">Server-Logs</h3>
+                    <p class="text-lg leading-relaxed opacity-80">${content.server_logs_de}</p>
                 </div>
             `;
         }
@@ -853,15 +718,6 @@
                     document.body.appendChild(footer);
                 }
             }
-
-            // Setze aktive Sprache im UI
-            const lang = window.currentLang || 'de';
-            document.querySelectorAll('.footer-chip').forEach(btn => btn.classList.remove('active'));
-            const langBtn = document.getElementById(`lang-${lang}`);
-            if (langBtn) langBtn.classList.add('active');
-
-            // Übersetze die Seite
-            updateTranslations();
 
             // Zeige die richtige Seite basierend auf window.currentPage
             const availablePages = ['overview', 'hub', 'about', 'impressum', 'datenschutz'];
