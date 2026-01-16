@@ -278,6 +278,44 @@
         </main>
     </section>
 
+    <!-- HUB VIEW -->
+    <section id="page-hub"
+        class="page-transition hidden hidden-page max-w-7xl mx-auto w-full flex flex-col md:flex-row md:min-h-screen">
+        <header
+            class="w-full md:w-5/12 lg:w-1/3 md:sticky md:top-0 md:h-screen flex flex-col items-center justify-center md:items-start md:text-left p-8 lg:p-16">
+            <div class="relative inline-block group mb-8 lg:mb-12">
+                <div
+                    class="w-24 h-24 lg:w-40 lg:h-40 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-[32px] lg:rounded-[48px] shadow-lg flex items-center justify-center text-white text-3xl lg:text-5xl font-bold transition-all group-hover:scale-105">
+                    LN
+                </div>
+            </div>
+            <div class="mt-0">
+                <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[var(--m3-on-surface)] mb-3">
+                    L8teHub</h1>
+                <p class="opacity-60 text-lg lg:text-2xl font-medium" data-i18n="subtitle_hub">Launcher</p>
+            </div>
+        </header>
+
+        <main class="w-full md:w-7/12 lg:w-8/12 p-4 md:p-12 lg:p-20 flex flex-col justify-center">
+            <div id="hub-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-3xl mx-auto md:mx-0">
+                <!-- Wird via JS befüllt -->
+            </div>
+
+            <div class="grid grid-cols-1 gap-5 w-full max-w-3xl mx-auto md:mx-0 mt-8">
+                <!-- Zurück Button -->
+                <button onclick="switchPage('overview')"
+                    class="android-card p-6 bg-[var(--m3-secondary-container)] text-[var(--m3-on-secondary-container)] font-bold flex items-center justify-center space-x-3 hover:brightness-95">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span class="text-lg" data-i18n="back_btn">Zurück</span>
+                </button>
+            </div>
+            <div id="footer-placeholder-hub" class="mt-16 lg:mt-32"></div>
+        </main>
+    </section>
+
     <!-- ABOUT VIEW (Personal Info Tiled) - GEFIXTER DARK MODE -->
     <section id="page-about"
         class="page-transition hidden hidden-page max-w-7xl mx-auto w-full flex flex-col md:flex-row md:min-h-screen">
@@ -475,6 +513,62 @@
             instagram: '<svg class="w-7 h-7 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>',
             link: '<svg class="w-7 h-7 lg:w-9 lg:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>'
         };
+
+        // Fallback Content wenn kein Server läuft
+        if (!window.siteContent) {
+            window.siteContent = {
+                name: 'L8teNever',
+                subtitle_de: 'Digitaler Creator & Entwickler',
+                subtitle_en: 'Digital Creator & Developer',
+                age: '16',
+                status_de: 'Schüler',
+                status_en: 'Student',
+                vibe: 'Vibecoding',
+                location: 'Deutschland',
+                main_links: [],
+                hub_buttons: [
+                    { id: 'L8teStudy', name_de: 'L8teStudy', name_en: 'L8teStudy', desc_de: 'Lernen', desc_en: 'Study', url: '#', icon: 'study' },
+                    { id: 'L8teFuel', name_de: 'L8teFuel', name_en: 'L8teFuel', desc_de: 'Energie', desc_en: 'Energy', url: '#', icon: 'fuel' },
+                    { id: 'L8teHabbit', name_de: 'L8teHabbit', name_en: 'L8teHabbit', desc_de: 'Routinen', desc_en: 'Habits', url: '#', icon: 'habbit' },
+                    { id: 'L8teID', name_de: 'L8teID', name_en: 'L8teID', desc_de: 'Identität', desc_en: 'Identity', url: '#', icon: 'id' },
+                    { id: 'L8teFlow', name_de: 'L8teFlow', name_en: 'L8teFlow', desc_de: 'Automatisierung', desc_en: 'Flows', url: '#', icon: 'flow' },
+                    { id: 'L8teBot', name_de: 'L8teBot', name_en: 'L8teBot', desc_de: 'Assistent', desc_en: 'Bot', url: '#', icon: 'bot' }
+                ],
+                about_info: [
+                    { label_de: 'Alter', label_en: 'Age', value_de: '16', value_en: '16' },
+                    { label_de: 'Status', label_en: 'Status', value_de: 'Schüler', value_en: 'Student' },
+                    { label_de: 'Vibe', label_en: 'Vibe', value_de: 'Vibecoding', value_en: 'Vibecoding' },
+                    { label_de: 'Standort', label_en: 'Location', value_de: 'Deutschland', value_en: 'Germany' }
+                ],
+                interests: ['UI/UX', 'Branding', 'Coding'],
+                impressum: {
+                    company: 'L8teNever',
+                    address_line1: 'Musterstraße 123',
+                    address_line2: '12345 Berlin',
+                    country: 'Deutschland',
+                    email: 'hello@l8tenever.com',
+                    responsible: 'L8teNever'
+                },
+                privacy: {
+                    intro_de: 'Diese Website verwendet keine Cookies und kein Tracking.',
+                    intro_en: 'This website does not use cookies or tracking.',
+                    data_processing_de: 'Wir verarbeiten keine personenbezogenen Daten. Die Website ist rein funktional und speichert keine Benutzerinformationen.',
+                    data_processing_en: 'We do not process any personal data. This website is purely functional and does not store any user information.',
+                    server_logs_de: 'Technisch bedingt werden beim Zugriff auf die Website temporäre Verbindungsdaten (IP-Adresse, Zeitstempel) im Server-Log gespeichert. Diese Daten werden nicht ausgewertet und nach 24 Stunden automatisch gelöscht.',
+                    server_logs_en: 'For technical reasons, temporary connection data (IP address, timestamp) is stored in the server log when accessing the website. This data is not analyzed and is automatically deleted after 24 hours.'
+                }
+            };
+        }
+
+        // Fallback für Sprache
+        if (!window.currentLang) {
+            window.currentLang = 'de';
+        }
+
+        // Fallback für aktuelle Seite
+        if (!window.currentPage) {
+            window.currentPage = 'overview';
+        }
 
         let currentActivePage = 'overview';
         let currentLang = window.currentLang || 'de';
